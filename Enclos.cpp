@@ -33,6 +33,10 @@ bool Enclos::getNourriture() const{
     return nourriture;
 };
 
+vector<Animal>& getAnimaux() {
+    return animaux;
+};
+
 const vector<Animal>& Enclos::getAnimaux() const{
     return animaux;
 };
