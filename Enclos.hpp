@@ -1,0 +1,32 @@
+#ifndef ENCLOS_HPP
+#define ENCLOS_HPP
+
+#include <string>
+#include <vector>
+#include "Animal.hpp"
+using namespace std;
+
+class Enclos
+{
+private:
+    int enclos_id;
+    string race;
+    string regime;
+    int nombre_animaux;
+    string type_enclos;
+    bool nourriture;
+    vector<Animal> animaux;
+
+public:
+    Enclos(int _id, const string& _race, const string& _regime, const string& _type_enclos);
+
+    void ajout_animal(const Animal& nouvel_animal);
+    void remplissage_nourriture(int date_actuelle);
+
+    int getID() const;
+    int getNombreAnimaux() const;
+    bool getNourriture() const;
+    const vector<Animal>& getAnimaux() const;
+};
+
+#endif
