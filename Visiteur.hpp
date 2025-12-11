@@ -19,6 +19,8 @@ public:
     int prix_total() const;
     
     void afficher_informations() const override;
+
+    const map<string, int>& getBillets() const;
 };
 
 #endif
