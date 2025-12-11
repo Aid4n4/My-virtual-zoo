@@ -32,3 +32,7 @@ void Visiteur::afficher_informations() const {
     cout << "Client #" << numero_client << endl;
     Personne::afficher_informations();
 };
+
+const map<string, int>& Visiteur::getBillets() const{
+    return billets;
+};
