@@ -19,13 +19,11 @@ public:
     Zoo();
     
     void ajouter_visiteur(const Visiteur& nouveau_visiteur);
+    void ajouter_enclos(const Enclos& e);
     void simuler_sante_animaux();
     void passer_jour();
     int nombre_billets_jour(int jour) const;
     int benefice_jour(int jour) const;
-
-    map<int, vector<Visiteur>> getBilletsParJour() const;
-
 };
 
 #endif
