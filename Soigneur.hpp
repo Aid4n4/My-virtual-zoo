@@ -11,7 +11,7 @@ private:
     Enclos* enclos_assigne;
 
 public:
-    Soigneur(const string& nom, const string& prenom, Enclos* enclos_assigne);
+    Soigneur(const string& _nom, const string& _prenom, Enclos* _enclos_assigne);
     
     void verification_statut_tous() const;
     void remplir_nourriture_enclos(int date_actuelle);
