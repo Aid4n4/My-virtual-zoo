@@ -1,74 +1,32 @@
-/*Exercice 1, 2, 3
-+--------------------------------------+
-|               Etudiant               |
-+--------------------------------------+
-| - nom : string                       |
-| - amendes : double                   |
-| - fraisScolarite : double            |
-+--------------------------------------+
-| + Etudiant(nom : string)             |
-| + Etudiant(nom : string,             |
-|            amendes : double)         |
-| + Etudiant(nom : string,             |
-|            amendes : double,         |
-|            frais : double)           |
-| + const totalDu() : double           |
-+--------------------------------------+
-*/
-
 #include <iostream>
-#include "Etudiant.hpp"
+#include <map>
+#include "Visiteur.hpp"
 using namespace std;
 
-Etudiant::Etudiant(const string& _nom) : nom(_nom), amendes(0.0), fraisScolarite(0.0) {}
-
-Etudiant::Etudiant(const string& _nom, double _amendes) : nom(_nom), amendes(_amendes), fraisScolarite(0.0) {}
-
-Etudiant::Etudiant(const string& _nom, double _amendes, double _fraisScolarite) : nom(_nom), amendes(_amendes), fraisScolarite(_fraisScolarite) {}
-
-Etudiant::Etudiant(const string& _nom, double _amendes, double _fraisScolarite, const Date& naissance) : nom(_nom), amendes(_amendes), fraisScolarite(_fraisScolarite), date_naissance(naissance) {}
-
-double Etudiant::totalDu() const {
-    return amendes + fraisScolarite;
-}
-
-string Etudiant::getNom() const {
-    return nom;
-}
-
-double Etudiant::getAmendes() const {
-    return amendes;
-}
-
-double Etudiant::getFraisScolarite() const {
-    return fraisScolarite;
-}
-
-int Etudiant::getAge(const Date& date_actuelle) const {
-    return date_naissance.calculerAge(date_actuelle);
+map<string, int> Visiteur::prix_billet = {
+    {"enfant (- de 5 ans)", 0},
+    {"jeune (- de 18 ans)", 8},
+    {"etudiant (18-25 ans)", 10},
+    {"adulte", 15},
+    {"retraite (65 et +)", 12},
+    {"handicape", 0},
 };
 
-void Etudiant::setNom(const std::string& _nom){
-    nom = _nom;
-}
+Visiteur::Visiteur(const string& _nom, const string& _prenom, int _numero_client) : Personne(_nom, _prenom), numero_client(_numero_client) {};
 
-void Etudiant::setAmendes(double _amendes) {
-    if (_amendes >= 0.0) {
-        amendes = _amendes;
-    } else {
-        cout << "Erreur : les amendes ne peuvent pas être négatives !" << endl;
+void Visiteur::acheter_billet(const string& type_billet, int quantite) {
+    billets[type_billet] += quantite;
+};
+
+int Visiteur::prix_total() const {
+    int total = 0;
+    for (const auto& [type, quantite] : billets) {
+        total += quantite * prix_billet[type];
     }
-}
-
-void Etudiant::setFraisScolarite(double _fraisScolarite) {
-    fraisScolarite = _fraisScolarite;
-}
-
-void Etudiant::afficher() const{
-    cout << "Etudiant : " << nom << endl;
-    cout << "Date de naissance : " << date_naissance.getJour() << "/" << date_naissance.getMois() << "/" << date_naissance.getAnnee() << endl;
-    cout << "Amendes de bibliotheque : " << amendes << " euros" << endl;
-    cout << "Frais de scolarite : " << fraisScolarite << " euros" << endl;
-    cout << "Total du : " << totalDu() << " euros" << endl;
-}
-
+    return total;
+};
+    
+void Visiteur::afficher_informations() const {
+    cout << "Client #" << numero_client << endl;
+    Personne::afficher_informations();
+};
