@@ -13,7 +13,7 @@ private:
     static map<string, int> prix_billet;
 
 public:
-    Visiteur(const string& nom, const string& prenom, int numero_client);
+    Visiteur(const string& _nom, const string& _prenom, int _numero_client);
 
     void acheter_billet(const string& type_billet, int quantite);
     int prix_total() const;
