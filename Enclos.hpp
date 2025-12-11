@@ -26,7 +26,8 @@ public:
     int getID() const;
     int getNombreAnimaux() const;
     bool getNourriture() const;
-    const vector<Animal>& getAnimaux() const;
+    vector<Animal>& getAnimaux(); //version modifiable
+    const vector<Animal>& getAnimaux() const; //version lecture seule
 };
 
 #endif
