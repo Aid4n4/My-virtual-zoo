@@ -11,7 +11,7 @@ protected:
    string prenom;
 
 public:
-    Personne(const string& nom, const string& prenom);
+    Personne(const string& _nom, const string& _prenom);
 
     virtual ~Personne() = default;
     
