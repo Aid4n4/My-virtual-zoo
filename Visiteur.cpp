@@ -20,7 +20,9 @@ void Visiteur::acheter_billet(const string& type_billet, int quantite) {
 
 int Visiteur::prix_total() const {
     int total = 0;
-    for (const auto& [type, quantite] : billets) {
+    for (const auto& b : billets) {
+        const string& type = b.first;
+        int quantite = b.second;
         total += quantite * prix_billet[type];
     }
     return total;
