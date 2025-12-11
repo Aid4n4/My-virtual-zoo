@@ -10,11 +10,10 @@ private:
     Zoo* zoo;
 
 public:
-    Statistique(Zoo* z);
+    Statistique(Zoo* _zoo);
 
     int nombre_billets_totaux() const;
     int calculer_benefice_total() const;
-
 };
 
 #endif
