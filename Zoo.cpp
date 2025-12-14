@@ -17,7 +17,8 @@ void Zoo::ajouter_enclos(const Enclos& e) {
 void Zoo::simuler_sante_animaux(){ //Donne aux animaux un état de santé aléatoire (en bonne santé ou pas) (true/false)
     for (auto& e : enclos){
         for (auto& animal : e.getAnimaux()) {
-            bool tirage = (rand() % 100) < 95;
+            bool tirage = (rand() % 100) < 70;
+            cout << tirage << endl;
             animal.changement_statut_sante(tirage);
         }
     }
@@ -73,6 +74,10 @@ int Zoo::benefice_jour(int jour) const{ //calcule les bénéfices réalisés par
     }
 
     return total;
+};
+
+Enclos& Zoo::getEnclos(size_t index){
+    return enclos.at(index);
 };
 
 map<int, vector<Visiteur>> Zoo::getBilletsParJour() const{
