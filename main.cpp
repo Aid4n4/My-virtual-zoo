@@ -15,6 +15,9 @@ int main() {
 
     zoo.ajouter_enclos(enclos1);
     zoo.ajouter_enclos(enclos2);
-    
+
+    Animal lion1(1, "Simba");
+    Animal lion2(2, "Nala");
+
     return 0;
 }
