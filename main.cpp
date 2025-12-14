@@ -4,6 +4,7 @@
 #include "Animal.hpp"
 #include "Soigneur.hpp"
 #include "Visiteur.hpp"
+#include "Statistique.hpp"
 using namespace std;
 
 int main() {
@@ -21,3 +22,4 @@ int main() {
 
     return 0;
 }
+
