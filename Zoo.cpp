@@ -1,4 +1,5 @@
 #include <iostream>
+#include <map>
 #include <cstdlib>
 #include "Zoo.hpp"
 using namespace std;
@@ -72,4 +73,8 @@ int Zoo::benefice_jour(int jour) const{ //calcule les bénéfices réalisés par
     }
 
     return total;
+};
+
+map<int, vector<Visiteur>> Zoo::getBilletsParJour() const{
+    return billets_par_jour;
 };
