@@ -14,7 +14,6 @@ private:
     vector<Enclos> enclos;
     vector<Visiteur> visiteurs;
     map<int, vector<Visiteur>> billets_par_jour;
-
 public:
     Zoo();
     
@@ -24,6 +23,8 @@ public:
     void passer_jour();
     int nombre_billets_jour(int jour) const;
     int benefice_jour(int jour) const;
+
+    map<int, vector<Visiteur>> getBilletsParJour() const;
 };
 
 #endif
