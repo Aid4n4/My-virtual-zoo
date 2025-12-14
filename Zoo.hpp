@@ -24,6 +24,7 @@ public:
     int nombre_billets_jour(int jour) const;
     int benefice_jour(int jour) const;
 
+    Enclos& getEnclos(size_t index);
     map<int, vector<Visiteur>> getBilletsParJour() const;
 };
 
