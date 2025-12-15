@@ -23,6 +23,8 @@ public:
     void ajout_animal(const Animal& nouvel_animal);
     void remplissage_nourriture(int date_actuelle);
 
+    void setNourriture(bool etat);
+
     int getID() const;
     int getNombreAnimaux() const;
     bool getNourriture() const;
