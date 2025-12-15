@@ -84,6 +84,10 @@ Enclos& Zoo::getEnclos(size_t index){
     return enclos.at(index);
 };
 
+const Enclos& Zoo::getEnclos(size_t index) const{
+    return enclos.at(index);
+};
+
 map<int, vector<Visiteur>> Zoo::getBilletsParJour() const{
     return billets_par_jour;
 };
