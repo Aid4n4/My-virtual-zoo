@@ -25,18 +25,23 @@ void Zoo::simuler_sante_animaux(){ //Donne aux animaux un état de santé aléat
 };
 
 void Zoo::passer_jour(){ //passe au jour suivant de la simulation si certaines conditions sont remplies
+    // Vérification avant de passer au jour suivant
     for(const auto& e : enclos) {
         for (const auto& animal : e.getAnimaux()) {
             if (!animal.getSante() || !animal.getSatiete()) { // si les animaux sont nourris et en bonne santé
                 cout << "Vous ne pouvez pas passer au jour suivant, occupez-vous de tous les animaux avant ! " << endl; // sinon affiche ce message
+                return; // Condition d'arrêt
             }
         }
     }
     
+    // Sinon passe au jour suivant
     simuler_sante_animaux(); 
     billets_par_jour[date_actuelle] = visiteurs; // prends ensuite en compte le nombre de billets vendus
     date_actuelle++; //augmente d'un jour la date
     visiteurs.clear(); //remet a 0 le nombre de visiteurs de la journée pour les stats
+
+    // Réinitialise l'état de faim des animaux
     for (auto& e : enclos) {
         for (auto& animal : e.getAnimaux()) {
             animal.changement_statut_satiete(false); // donne faim aux animaux
