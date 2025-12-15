@@ -13,12 +13,16 @@ void Enclos::remplissage_nourriture(int date_actuelle){
     if (nourriture == true){
         return;
     }
+    
     nourriture = true;
     for (auto& animal : animaux) {
         animal.changement_statut_satiete(true);
         animal.setDernierDateNourri(date_actuelle);
     }
+};
 
+void Enclos::setNourriture(bool etat) {
+    nourriture = etat;
 };
 
 int Enclos::getID() const{
