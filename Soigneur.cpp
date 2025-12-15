@@ -15,10 +15,12 @@ void Soigneur::remplir_nourriture_enclos(int date_actuelle) {
 };
 
 void Soigneur::soigner(Animal& animal) {
-    if (animal.getSante() == false)
+    if (animal.getSante() == false) {
         animal.changement_statut_sante(true);
-    else
+    }
+    else {
         cout << "Vous ne pouvez pas soigner cet animal, il est deja en bonne sante." << endl;
+    }
 };
 
 void Soigneur::afficher_informations() const {
