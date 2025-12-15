@@ -4,7 +4,7 @@
 #include "Zoo.hpp"
 using namespace std;
 
-Zoo::Zoo() : date_actuelle(0) {}
+Zoo::Zoo() : date_actuelle(1) {}
 
 void Zoo::ajouter_visiteur(const Visiteur& nouveau_visiteur){ // ajoute des visiteurs dans le parc
     visiteurs.push_back(nouveau_visiteur);
