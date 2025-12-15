@@ -25,6 +25,7 @@ public:
     int benefice_jour(int jour) const;
 
     int getDateActuelle() const;
+    int getDernierJour() const;
     Enclos& getEnclos(size_t index); // version modifiable
     const Enclos& getEnclos(size_t index) const; // version lecture
     map<int, vector<Visiteur>> getBilletsParJour() const;
