@@ -41,8 +41,8 @@ int main() {
     Soigneur soigneur2("Quoi", "Feur", &zoo.getEnclos(1));
 
     soigneur1.verification_statut_tous();
-    soigneur1.remplir_nourriture_enclos(0);
-    soigneur2.remplir_nourriture_enclos(0);
+    soigneur1.remplir_nourriture_enclos(zoo.getDateActuelle());
+    soigneur2.remplir_nourriture_enclos(zoo.getDateActuelle());
 
     cout << "Identifiant enclos : " << zoo.getEnclos(0).getID() << "\n Nombre d'animaux : " << zoo.getEnclos(0).getNombreAnimaux() << "\n Nourriture  : " << zoo.getEnclos(0).getNourriture() << endl;
 
@@ -65,9 +65,9 @@ int main() {
     cout << "-- Passer un jour --" << endl;
     zoo.passer_jour();
 
-    cout << "-- Statistique du jour 0  --" << endl;
-    cout << "Nombre billets vendus jour 0 : " << zoo.nombre_billets_jour(0) << endl;
-    cout << "Benefice jour 0 : " << zoo.benefice_jour(0) << endl;
+    cout << "-- Statistique du jour 1  --" << endl;
+    cout << "Nombre billets vendus jour 1 : " << zoo.nombre_billets_jour(zoo.getDernierJour()) << endl;
+    cout << "Benefice jour 1 : " << zoo.benefice_jour(zoo.getDernierJour()) << endl;
 
     cout << "-- Jour 2 --" << endl;
     soigneur1.verification_statut_tous();
@@ -77,6 +77,9 @@ int main() {
     soigneur1.soigner(girafe2);
     soigneur2.soigner(lion1);
     soigneur2.soigner(lion2);
+
+    soigneur1.remplir_nourriture_enclos(zoo.getDateActuelle());
+    soigneur2.remplir_nourriture_enclos(zoo.getDateActuelle());
 
     soigneur1.verification_statut_tous();
     soigneur2.verification_statut_tous();
@@ -88,8 +91,10 @@ int main() {
     visiteur3.acheter_billet("retraite (65 et +)", 1);
     
     zoo.ajouter_visiteur(visiteur3);
+
+    cout << "-- Passer un jour --" << endl;
     zoo.passer_jour();
-    
+
     Statistique stats(&zoo);
     cout << "Nombre billets vendus jour ALL : " << stats.nombre_billets_totaux() << endl;
     cout << "Benefice jour ALL : " << stats.calculer_benefice_total() << endl;
