@@ -43,6 +43,7 @@ void Zoo::passer_jour(){ //passe au jour suivant de la simulation si certaines c
 
     // Réinitialise l'état de faim des animaux
     for (auto& e : enclos) {
+        e.setNourriture(false);
         for (auto& animal : e.getAnimaux()) {
             animal.changement_statut_satiete(false); // donne faim aux animaux
         }
@@ -79,6 +80,10 @@ int Zoo::benefice_jour(int jour) const{ //calcule les bénéfices réalisés par
     }
 
     return total;
+};
+
+int Zoo::getDernierJour() const {
+    return date_actuelle - 1;
 };
 
 int Zoo::getDateActuelle() const {
