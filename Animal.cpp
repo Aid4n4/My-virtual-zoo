@@ -2,7 +2,7 @@
 #include "Animal.hpp"
 using namespace std;
 
-Animal::Animal(int _numero, const string& _nom) : numero(_numero), nom(_nom), sante(true), satiete(false), derniere_date_nourri(1) {};
+Animal::Animal(int _numero, const string& _nom) : numero(_numero), nom(_nom), sante(true), satiete(false), derniere_date_nourri(0) {};
 
 void Animal::verification_statut() const{
     cout << "Animal #" << numero << " (" << nom << ")\n" 
