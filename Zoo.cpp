@@ -32,7 +32,7 @@ void Zoo::passer_jour(){ //passe au jour suivant de la simulation si certaines c
             }
         }
     }
-
+    
     simuler_sante_animaux(); 
     billets_par_jour[date_actuelle] = visiteurs; // prends ensuite en compte le nombre de billets vendus
     date_actuelle++; //augmente d'un jour la date
@@ -74,6 +74,10 @@ int Zoo::benefice_jour(int jour) const{ //calcule les bénéfices réalisés par
     }
 
     return total;
+};
+
+int Zoo::getDateActuelle() const {
+    return date_actuelle;
 };
 
 Enclos& Zoo::getEnclos(size_t index){
