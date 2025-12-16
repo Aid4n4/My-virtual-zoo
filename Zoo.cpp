@@ -6,12 +6,16 @@ using namespace std;
 
 Zoo::Zoo(const string& _nom) : nom(_nom), date_actuelle(1) {}
 
-void Zoo::ajouter_visiteur(const Visiteur& nouveau_visiteur){ // ajoute des visiteurs dans le parc
-    visiteurs.push_back(nouveau_visiteur);
+void Zoo::ajouter_visiteur(const Visiteur& _visiteur){ // ajoute des visiteurs dans le parc
+    visiteurs.push_back(_visiteur);
 };
 
-void Zoo::ajouter_enclos(const Enclos& e) {
-    enclos.push_back(e);
+void Zoo::ajouter_soigneur(const Soigneur& _soigneur) {
+    soigneurs.push_back(_soigneur);
+};
+
+void Zoo::ajouter_enclos(const Enclos& _enclos) {
+    enclos.push_back(_enclos);
 };
 
 void Zoo::simuler_sante_animaux(){ //Donne aux animaux un état de santé aléatoire (en bonne santé ou pas) (true/false)
