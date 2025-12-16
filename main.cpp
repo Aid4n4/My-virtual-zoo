@@ -10,7 +10,7 @@ int main() {
     srand(time(nullptr));
 
     cout << "-- Creation du zoo --" << endl;
-    Zoo zoo;
+    Zoo zoo("Chat");
 
     cout << "-- Creation des enclos --" << endl;
     zoo.ajouter_enclos(Enclos(1, "Girafe", "Herbivore", "Plaine"));
