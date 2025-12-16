@@ -37,8 +37,11 @@ int main() {
     cout << "Identifiant enclos : " << zoo.getEnclos(1).getID() << "\n Nombre d'animaux : " << zoo.getEnclos(1).getNombreAnimaux() << "\n Nourriture  : " << zoo.getEnclos(1).getNourriture() << endl;
     
     cout << "-- Creation des soigneurs --" << endl;
-    Soigneur soigneur1("Broillet", "Virgile", &zoo.getEnclos(0));
-    Soigneur soigneur2("Quoi", "Feur", &zoo.getEnclos(1));
+    Soigneur soigneur1("Broillet", "Virgile");
+    Soigneur soigneur2("Quoi", "Feur");
+
+    soigneur1.assigner_enclos(&zoo.getEnclos(0));
+    soigneur2.assigner_enclos(&zoo.getEnclos(1));
 
     soigneur1.verification_statut_tous();
     soigneur1.remplir_nourriture_enclos(zoo.getDateActuelle());
