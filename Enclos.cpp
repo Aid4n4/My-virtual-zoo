@@ -1,8 +1,9 @@
 #include <iostream>
 #include "Enclos.hpp"
+#include "Soigneur.hpp"
 using namespace std;
 
-Enclos::Enclos(int _id, const string& _race, const string& _regime, const string& _type_enclos) : enclos_id(_id), race(_race), regime(_regime), type_enclos(_type_enclos), nourriture(false) {}
+Enclos::Enclos(int _id, const string& _race, const string& _regime, const string& _type_enclos) : enclos_id(_id), race(_race), regime(_regime), type_enclos(_type_enclos), nourriture(false), soigneur(nullptr) {}
 
 void Enclos::ajout_animal(const Animal& nouvel_animal){
     animaux.push_back(nouvel_animal);
@@ -24,6 +25,10 @@ void Enclos::setNourriture(bool etat) {
     nourriture = etat;
 };
 
+void Enclos::setSoigneur(Soigneur* _soigneur) {
+    soigneur = _soigneur;
+};
+
 int Enclos::getID() const{
     return enclos_id;
 };
@@ -42,4 +47,8 @@ vector<Animal>& Enclos::getAnimaux() {
 
 const vector<Animal>& Enclos::getAnimaux() const{
     return animaux;
+};
+
+Soigneur* Enclos::getSoigneur() const {
+    return soigneur;
 };
