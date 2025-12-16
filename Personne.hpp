@@ -17,6 +17,8 @@ public:
     
     virtual void afficher_informations() const;
 
+    string getNom() const;
+    string getPrenom() const;
 };
 
 #endif
