@@ -43,6 +43,9 @@ int main() {
     soigneur1.assigner_enclos(&zoo.getEnclos(0));
     soigneur2.assigner_enclos(&zoo.getEnclos(1));
 
+    soigneur1.afficher_informations();
+    soigneur2.afficher_informations();
+
     soigneur1.verification_statut_tous();
     soigneur1.remplir_nourriture_enclos(zoo.getDateActuelle());
     soigneur2.remplir_nourriture_enclos(zoo.getDateActuelle());
