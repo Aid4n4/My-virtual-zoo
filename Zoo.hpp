@@ -10,12 +10,13 @@ using namespace std;
 class Zoo
 {
 private:
+    string nom;
     int date_actuelle;
     vector<Enclos> enclos;
     vector<Visiteur> visiteurs;
     map<int, vector<Visiteur>> billets_par_jour;
 public:
-    Zoo();
+    Zoo(const string& _nom);
     
     void ajouter_visiteur(const Visiteur& nouveau_visiteur);
     void ajouter_enclos(const Enclos& e);
@@ -24,6 +25,7 @@ public:
     int nombre_billets_jour(int jour) const;
     int benefice_jour(int jour) const;
 
+    string getNom() const;
     int getDateActuelle() const;
     int getDernierJour() const;
     Enclos& getEnclos(size_t index); // version modifiable
