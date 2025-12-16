@@ -12,6 +12,11 @@ void Soigneur::assigner_enclos(Enclos* _enclos_assigne) {
 };
 
 void Soigneur::verification_statut_tous() const {
+    if (!enclos_assigne) {
+        cout << "Aucun enclos n'est assigne au soigneur." << endl;
+        return;
+    }
+
     for (const auto& animal : enclos_assigne->getAnimaux()) {
         animal.verification_statut();
     }
@@ -33,4 +38,11 @@ void Soigneur::soigner(Animal& animal) {
 void Soigneur::afficher_informations() const {
     cout << "Rôle : Soigneur" << endl;
     Personne::afficher_informations();
+
+    if (enclos_assigne) {
+        cout << "Enclos assigne : #" << enclos_assigne->getID() << endl;
+    }
+    else {
+        cout << "Aucun enclos assigne" << endl;
+    }
 };
