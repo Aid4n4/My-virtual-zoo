@@ -4,7 +4,7 @@
 #include "Zoo.hpp"
 using namespace std;
 
-Zoo::Zoo() : date_actuelle(1) {}
+Zoo::Zoo(const string& _nom) : nom(_nom), date_actuelle(1) {}
 
 void Zoo::ajouter_visiteur(const Visiteur& nouveau_visiteur){ // ajoute des visiteurs dans le parc
     visiteurs.push_back(nouveau_visiteur);
@@ -82,12 +82,16 @@ int Zoo::benefice_jour(int jour) const{ //calcule les bénéfices réalisés par
     return total;
 };
 
-int Zoo::getDernierJour() const {
-    return date_actuelle - 1;
+string Zoo::getNom() const {
+    return nom;
 };
 
 int Zoo::getDateActuelle() const {
     return date_actuelle;
+};
+
+int Zoo::getDernierJour() const {
+    return date_actuelle - 1;
 };
 
 Enclos& Zoo::getEnclos(size_t index){
