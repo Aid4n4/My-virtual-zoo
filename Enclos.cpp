@@ -21,6 +21,20 @@ void Enclos::remplissage_nourriture(int date_actuelle){
     }
 };
 
+void Enclos::afficher_informations() const {
+    cout << "Enclos #" << enclos_id << "\n" 
+    << "    Race : " << race << "\n" 
+    << "    Regime : " << regime << "\n" 
+    << "    Type : " << type_enclos << "\n"
+    << "    Nombre d'animaux : " << animaux.size() << "\n";
+    if (soigneur) {
+        cout << "   Soigneur assigné : " << soigneur->getNom() << " " << soigneur->getPrenom() << endl;
+    }
+    else {
+        cout << "   Soigneur assigné : Aucun" << endl;
+    }
+};
+
 void Enclos::setNourriture(bool etat) {
     nourriture = etat;
 };
