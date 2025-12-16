@@ -43,6 +43,9 @@ int main() {
     soigneur1.assigner_enclos(&zoo.getEnclos(0));
     soigneur2.assigner_enclos(&zoo.getEnclos(1));
 
+    zoo.ajouter_soigneur(soigneur1);
+    zoo.ajouter_soigneur(soigneur2);
+
     soigneur1.afficher_informations();
     soigneur2.afficher_informations();
 
@@ -51,8 +54,8 @@ int main() {
     soigneur2.remplir_nourriture_enclos(zoo.getDateActuelle());
 
     cout << "Identifiant enclos : " << zoo.getEnclos(0).getID() << "\n Nombre d'animaux : " << zoo.getEnclos(0).getNombreAnimaux() << "\n Nourriture  : " << zoo.getEnclos(0).getNourriture() << endl;
-
-   cout << "Identifiant enclos : " << zoo.getEnclos(1).getID() << "\n Nombre d'animaux : " << zoo.getEnclos(1).getNombreAnimaux() << "\n Nourriture  : " << zoo.getEnclos(1).getNourriture() << endl;
+    
+    cout << "Identifiant enclos : " << zoo.getEnclos(1).getID() << "\n Nombre d'animaux : " << zoo.getEnclos(1).getNombreAnimaux() << "\n Nourriture  : " << zoo.getEnclos(1).getNourriture() << endl;
 
     cout << "-- Creation des visiteurs --" << endl;
     Visiteur visiteur1("Feur", "Nugget", 1 );
