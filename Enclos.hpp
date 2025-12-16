@@ -6,6 +6,8 @@
 #include "Animal.hpp"
 using namespace std;
 
+class Soigneur; 
+
 class Enclos
 {
 private:
@@ -15,6 +17,7 @@ private:
     string type_enclos;
     bool nourriture;
     vector<Animal> animaux;
+    Soigneur* soigneur;
 
 public:
     Enclos(int _id, const string& _race, const string& _regime, const string& _type_enclos);
@@ -23,12 +26,14 @@ public:
     void remplissage_nourriture(int date_actuelle);
 
     void setNourriture(bool etat);
+    void setSoigneur(Soigneur* _soigneur);
 
     int getID() const;
     int getNombreAnimaux() const;
     bool getNourriture() const;
     vector<Animal>& getAnimaux(); //version modifiable
     const vector<Animal>& getAnimaux() const; //version lecture seule
+    Soigneur* getSoigneur() const;
 };
 
 #endif
