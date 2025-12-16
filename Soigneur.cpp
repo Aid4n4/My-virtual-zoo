@@ -2,7 +2,14 @@
 #include "Soigneur.hpp"
 using namespace std;
 
-Soigneur::Soigneur(const string& _nom, const string& _prenom, Enclos* _enclos_assigne) : Personne(_nom, _prenom), enclos_assigne(_enclos_assigne) {};
+Soigneur::Soigneur(const string& _nom, const string& _prenom) : Personne(_nom, _prenom), enclos_assigne(nullptr) {};
+
+void Soigneur::assigner_enclos(Enclos* _enclos_assigne) {
+    enclos_assigne = _enclos_assigne;
+    if (_enclos_assigne) {
+        _enclos_assigne->setSoigneur(this);
+    }
+};
 
 void Soigneur::verification_statut_tous() const {
     for (const auto& animal : enclos_assigne->getAnimaux()) {
