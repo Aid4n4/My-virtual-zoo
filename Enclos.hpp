@@ -24,6 +24,7 @@ public:
 
     void ajout_animal(const Animal& nouvel_animal);
     void remplissage_nourriture(int date_actuelle);
+    void afficher_informations() const;
 
     void setNourriture(bool etat);
     void setSoigneur(Soigneur* _soigneur);
