@@ -7,7 +7,7 @@
 #include "Statistique.hpp"
 using namespace std;
 
-int feur() {
+int copie_main() {
     srand(time(nullptr));
     string nom;
     cout << "-- Bienvenue dans My Virtual Zoo --" << endl;
@@ -16,15 +16,16 @@ int feur() {
     Zoo zoo(nom);
 
     cout << "- Pour commencer, il faudrait creer des enclos pour pouvoir y mettre nos futurs animaux." << endl;
+    
     map<string, vector<string>> animaux = {
         {"Girafe", {"Herbivore", "Plaine"}},
         {"Lion", {"Carnivore", "Savane"}},
         {"Pingouin", {"Carnivore", "Banquise"}},
         {"Loup", {"Carnivore", "Forêt"}},
-        {"Guépard", {"Carnivore", "Savane"}},
+        {"Guepard", {"Carnivore", "Savane"}},
         {"Koala", {"Herbivore", "Foret"}},
         {"Tigre", {"Carnivore", "Foret"}},
-        {"Rhinocéros", {"herbivore", "Savane"}},
+        {"Rhinoceros", {"herbivore", "Savane"}},
         {"Dauphin", {"Carnivore", "Océan"}},
         {"Tortue terrestre", {"Herbivore", "Plaine"}},
         {"Tortue aquatique", {"Herbivore", "Lac"}},
@@ -38,9 +39,13 @@ int feur() {
         {"Panda Roux", {"Omnivore", "Foret"}},
         {"Flamant Rose", {"Carnivore", "Lac"}},
         
-
     };
-    zoo.ajouter_enclos(Enclos(1, "Girafe", "Herbivore", "Plaine"));
+    cout << "- Choisis quel animal tu veux mettre à l'intérieur"<< endl;
+    cout << "- Tu as le choix entre tout ces animaux : \n" << "Girafe, Lion, Pingouin, Loup, Guepard, Koala, Tigre, Rhinoceros, Dauphin, Tortue terrestre, Tortue aquatique, Ouistiti, Gorille, Perroquet, Gazelle, Crocodile, Lynx, Cobra, Panda Roux, Flamant Rose. " << endl;
+    
+}
+
+    /* zoo.ajouter_enclos(Enclos(1, "Girafe", "Herbivore", "Plaine"));
     zoo.ajouter_enclos(Enclos (2, "Lion", "Carnivore", "Savane"));
     
     cout << "- Super ! Maintenant que nous avons leurs habitats il faudrait ajouter des animaux." << endl;
@@ -128,4 +133,4 @@ int feur() {
 
     return 0;
 }
-*/
+    */
