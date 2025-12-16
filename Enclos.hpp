@@ -12,7 +12,6 @@ private:
     int enclos_id;
     string race;
     string regime;
-    int nombre_animaux;
     string type_enclos;
     bool nourriture;
     vector<Animal> animaux;
