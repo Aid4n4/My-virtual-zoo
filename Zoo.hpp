@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include "Enclos.hpp"
+#include "Soigneur.hpp"
 #include "Visiteur.hpp"
 using namespace std;
 
@@ -13,13 +14,15 @@ private:
     string nom;
     int date_actuelle;
     vector<Enclos> enclos;
+    vector<Soigneur> soigneurs;
     vector<Visiteur> visiteurs;
     map<int, vector<Visiteur>> billets_par_jour;
 public:
     Zoo(const string& _nom);
     
-    void ajouter_visiteur(const Visiteur& nouveau_visiteur);
-    void ajouter_enclos(const Enclos& e);
+    void ajouter_visiteur(const Visiteur& _visiteur);
+    void ajouter_soigneur(const Soigneur& _soigneur);
+    void ajouter_enclos(const Enclos& _enclos);
     void simuler_sante_animaux();
     void passer_jour();
     int nombre_billets_jour(int jour) const;
