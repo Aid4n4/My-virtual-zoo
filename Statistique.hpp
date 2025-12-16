@@ -7,10 +7,10 @@ using namespace std;
 class Statistique
 {
 private:
-    Zoo* zoo;
+    const Zoo& zoo;
 
 public:
-    Statistique(Zoo* _zoo);
+    Statistique(const Zoo& _zoo);
 
     int nombre_billets_totaux() const;
     int calculer_benefice_total() const;
