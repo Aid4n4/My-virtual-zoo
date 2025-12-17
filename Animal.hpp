@@ -22,6 +22,8 @@ public:
 
     void setDernierDateNourri(int date);
 
+    int getNumero() const;
+    string getNom() const;
     bool getSante() const;
     bool getSatiete() const;
 };
