@@ -23,6 +23,14 @@ void Animal::setDernierDateNourri(int date){
     derniere_date_nourri = date;
 };
 
+int Animal::getNumero() const {
+    return numero;
+};
+
+string Animal::getNom() const {
+    return nom;
+};
+
 bool Animal::getSante() const{
     return sante;
 };
