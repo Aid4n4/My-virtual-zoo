@@ -15,7 +15,19 @@ void Zoo::ajouter_soigneur(const Soigneur& _soigneur) {
 };
 
 void Zoo::ajouter_enclos(const Enclos& _enclos) {
+    for (const auto& e : enclos) {
+        if (e.getID() == _enclos.getID()) {
+            cout << "Erreur : un enclos avec l'ID " << _enclos.getID() << " existe deja dans cet enclos." << endl;
+            return; 
+        }
+
+        if (e.getRace() == _enclos.getRace()) {
+            cout << "Erreur : un enclos avec la race \"" << _enclos.getRace() << "\" existe deja dans cet enclos." << endl;
+            return;
+        }
+    }
     enclos.push_back(_enclos);
+    cout << "Enclos #" << _enclos.getID() << "ajouter avec succes au zoo \"" << nom << "\"." << endl;
 };
 
 void Zoo::simuler_sante_animaux(){ //Donne aux animaux un état de santé aléatoire (en bonne santé ou pas) (true/false)
