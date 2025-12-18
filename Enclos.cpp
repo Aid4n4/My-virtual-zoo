@@ -40,10 +40,10 @@ void Enclos::afficher_informations() const {
     << "    Type : " << type_enclos << "\n"
     << "    Nombre d'animaux : " << animaux.size() << "\n";
     if (soigneur) {
-        cout << "   Soigneur assigné : " << soigneur->getNom() << " " << soigneur->getPrenom() << endl;
+        cout << "   Soigneur assigne : " << soigneur->getNom() << " " << soigneur->getPrenom() << endl;
     }
     else {
-        cout << "   Soigneur assigné : Aucun" << endl;
+        cout << "   Soigneur assigne : Aucun" << endl;
     }
 };
 
