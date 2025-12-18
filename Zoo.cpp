@@ -8,8 +8,8 @@ Zoo::Zoo(const string& _nom) : nom(_nom), date_actuelle(1) {}
 
 void Zoo::ajouter_visiteur(const Visiteur& _visiteur){ // ajoute des visiteurs dans le parc
     for (const auto& v : visiteurs) {
-        if (v.getNom() == _visiteur.getNom() && v.getPrenom() == _visiteur.getPrenom()) {
-            cout << "Erreur : le visiteur " << _visiteur.getNom() << " " << _visiteur.getPrenom() << " existe deja dans le zoo." << endl;
+        if (v.getNumeroClient() == _visiteur.getNumeroClient()) {
+            cout << "Erreur : un visiteur avec le numero client " << _visiteur.getNumeroClient() << " existe deja dans le zoo." << endl;
             return; 
         }
     }
