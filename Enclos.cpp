@@ -8,12 +8,12 @@ Enclos::Enclos(int _id, const string& _race, const string& _regime, const string
 void Enclos::ajout_animal(const Animal& nouvel_animal){
     for (const auto& animal : animaux) {
         if (animal.getNumero() == nouvel_animal.getNumero()) {
-            cout << "Erreur : un animal avec le numero " << nouvel_animal.getNumero() << " existe deja dands cet enclos." << endl;
+            cout << "Erreur : un animal avec le numero " << nouvel_animal.getNumero() << " existe deja dans cet enclos." << endl;
             return; 
         }
 
         if (animal.getNom() == nouvel_animal.getNom()) {
-            cout << "Erreur : un animal avec le nom \"" << nouvel_animal.getNom() << "\" existe deja dands cet enclos." << endl;
+            cout << "Erreur : un animal avec le nom \"" << nouvel_animal.getNom() << "\" existe deja dans cet enclos." << endl;
             return; 
         }
     }
@@ -57,6 +57,10 @@ void Enclos::setSoigneur(Soigneur* _soigneur) {
 
 int Enclos::getID() const{
     return enclos_id;
+};
+
+string Enclos::getRace() const{
+    return race;
 };
 
 int Enclos::getNombreAnimaux() const{
