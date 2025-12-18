@@ -41,7 +41,7 @@ void Zoo::ajouter_enclos(const Enclos& _enclos) {
         }
     }
     enclos.push_back(_enclos);
-    cout << "Enclos #" << _enclos.getID() << "ajouter avec succes au zoo \"" << nom << "\"." << endl;
+    cout << "Enclos #" << _enclos.getID() << " ajouter avec succes au zoo \"" << nom << "\"." << endl;
 };
 
 void Zoo::simuler_sante_animaux(){ //Donne aux animaux un état de santé aléatoire (en bonne santé ou pas) (true/false)
