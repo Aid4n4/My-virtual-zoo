@@ -33,6 +33,10 @@ void Visiteur::afficher_informations() const {
     Personne::afficher_informations();
 };
 
+int Visiteur::getNumeroClient() const {
+    return numero_client;
+};
+
 const map<string, int>& Visiteur::getBillets() const{
     return billets;
 };
