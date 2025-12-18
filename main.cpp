@@ -56,11 +56,9 @@ int main() {
     
     visiteur1.acheter_billet("jeune (- de 18 ans)", 10);
     visiteur1.acheter_billet("retraite (65 et +)", 1);
-    visiteur1.prix_total();
 
     Visiteur visiteur2("Aubert", "Lily", 2);
     visiteur2.acheter_billet("etudiant (18-25 ans)", 2);
-    visiteur2.prix_total();
 
     zoo.ajouter_visiteur(visiteur1);
     zoo.ajouter_visiteur(visiteur2);
