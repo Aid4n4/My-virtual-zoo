@@ -27,6 +27,7 @@ public:
     void passer_jour();
     int nombre_billets_jour(int jour) const;
     int benefice_jour(int jour) const;
+    void afficher_informations() const;
 
     string getNom() const;
     int getDateActuelle() const;
