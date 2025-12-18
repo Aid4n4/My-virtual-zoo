@@ -20,6 +20,7 @@ public:
     
     void afficher_informations() const override;
 
+    int getNumeroClient() const;
     const map<string, int>& getBillets() const;
 };
 
