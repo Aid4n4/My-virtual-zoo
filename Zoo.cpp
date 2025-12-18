@@ -7,11 +7,25 @@ using namespace std;
 Zoo::Zoo(const string& _nom) : nom(_nom), date_actuelle(1) {}
 
 void Zoo::ajouter_visiteur(const Visiteur& _visiteur){ // ajoute des visiteurs dans le parc
+    for (const auto& v : visiteurs) {
+        if (v.getNom() == _visiteur.getNom() && v.getPrenom() == _visiteur.getPrenom()) {
+            cout << "Erreur : le visiteur " << _visiteur.getNom() << " " << _visiteur.getPrenom() << " existe deja dans le zoo." << endl;
+            return; 
+        }
+    }
     visiteurs.push_back(_visiteur);
+    cout << "Visiteur ajoute avec succes." << endl;
 };
 
 void Zoo::ajouter_soigneur(const Soigneur& _soigneur) {
+    for (const auto& s : soigneurs) {
+        if (s.getNom() == _soigneur.getNom() && s.getPrenom() == _soigneur.getPrenom()) {
+            cout << "Erreur : le soigneur " << _soigneur.getNom() << " " << _soigneur.getPrenom() << " existe deja dans le zoo." << endl;
+            return; 
+        }
+    }
     soigneurs.push_back(_soigneur);
+    cout << "Soigneur ajoute avec succes." << endl;
 };
 
 void Zoo::ajouter_enclos(const Enclos& _enclos) {
