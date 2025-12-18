@@ -51,7 +51,7 @@ void Soigneur::soigner(Animal& animal) {
 };
 
 void Soigneur::afficher_informations() const {
-    cout << "Rôle : Soigneur" << endl;
+    cout << "Role : Soigneur" << endl;
     Personne::afficher_informations();
 
     if (enclos_assigne) {
