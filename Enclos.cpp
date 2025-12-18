@@ -38,12 +38,12 @@ void Enclos::afficher_informations() const {
     << "    Race : " << race << "\n" 
     << "    Regime : " << regime << "\n" 
     << "    Type : " << type_enclos << "\n"
-    << "    Nombre d'animaux : " << animaux.size() << "\n";
+    << "    Nombre d'animaux : " << animaux.size() << endl;
     if (soigneur) {
-        cout << "   Soigneur assigne : " << soigneur->getNom() << " " << soigneur->getPrenom() << endl;
+        cout << "    Soigneur assigne : " << soigneur->getNom() << " " << soigneur->getPrenom() << endl;
     }
     else {
-        cout << "   Soigneur assigne : Aucun" << endl;
+        cout << "    Soigneur assigne : Aucun" << endl;
     }
 };
 
