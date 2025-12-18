@@ -112,6 +112,17 @@ int Zoo::benefice_jour(int jour) const{ //calcule les bénéfices réalisés par
     return total;
 };
 
+void Zoo::afficher_informations() const {
+    int total_animaux = 0;
+    for (const auto& e : enclos) {
+        total_animaux += e.getNombreAnimaux();
+    }
+    cout << "Zoo : " << nom << "\n" 
+    << "    Jour actuel : " << date_actuelle << "\n" 
+    << "    Nombre d'enclos : " << enclos.size() << "\n" 
+    << "    Nombre total d'animaux : " << total_animaux << endl;
+};
+
 string Zoo::getNom() const {
     return nom;
 };
