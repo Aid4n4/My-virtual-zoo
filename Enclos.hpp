@@ -30,6 +30,7 @@ public:
     void setSoigneur(Soigneur* _soigneur);
 
     int getID() const;
+    string getRace() const;
     int getNombreAnimaux() const;
     bool getNourriture() const;
     vector<Animal>& getAnimaux(); //version modifiable
