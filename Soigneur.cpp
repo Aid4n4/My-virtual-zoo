@@ -5,10 +5,25 @@ using namespace std;
 Soigneur::Soigneur(const string& _nom, const string& _prenom) : Personne(_nom, _prenom), enclos_assigne(nullptr) {};
 
 void Soigneur::assigner_enclos(Enclos* _enclos_assigne) {
-    enclos_assigne = _enclos_assigne;
-    if (_enclos_assigne) {
-        _enclos_assigne->setSoigneur(this);
+    if (!_enclos_assigne) {
+        cout << "Erreur : enclos invalide." << endl;
+        return;
     }
+
+    if (enclos_assigne != nullptr) {
+        cout << "Erreur : ce soigneur est deja assigne a un enclos." << endl;
+        return;
+    }
+    
+    if (_enclos_assigne->getSoigneur() != nullptr) {
+        cout << "Erreur : l'enclos #" << _enclos_assigne->getID() << " a deja un soigneur assigne." << endl;
+        return;
+    }
+
+    enclos_assigne = _enclos_assigne;
+    _enclos_assigne->setSoigneur(this);
+
+    cout << "Soigneur assigne avec succes a l'enclos #" << _enclos_assigne->getID() << "." << endl;
 };
 
 void Soigneur::verification_statut_tous() const {
