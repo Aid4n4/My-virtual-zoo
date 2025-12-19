@@ -11,12 +11,12 @@ int main() {
     string nom;
     cout << "-- Bienvenue dans My Virtual Zoo --" << endl;
     cout << " - Veuillez donner un nom a votre zoo : " << endl;
-    cin >> nom;
+    cin >> nom; //personalisation du nom du zoo
     Zoo zoo(nom);
 
     cout << "- Pour commencer, il faudrait creer des enclos pour pouvoir y mettre nos futurs animaux." << endl;
     
-    map<string, vector<string>> animaux = {
+    map<string, vector<string>> animaux = { //tableau des animaux disponible pour le moment
         {"Girafe", {"Herbivore", "Plaine"}},
         {"Lion", {"Carnivore", "Savane"}},
         {"Pingouin", {"Carnivore", "Banquise"}},
@@ -25,7 +25,7 @@ int main() {
         {"Koala", {"Herbivore", "Foret"}},
         {"Tigre", {"Carnivore", "Foret"}},
         {"Rhinoceros", {"herbivore", "Savane"}},
-        {"Dauphin", {"Carnivore", "Océan"}},
+        {"Dauphin", {"Carnivore", "Ocean"}},
         {"Tortue terrestre", {"Herbivore", "Plaine"}},
         {"Tortue aquatique", {"Herbivore", "Lac"}},
         {"Ouistiti", {"Omnivore", "Foret"}},
@@ -44,7 +44,7 @@ int main() {
         noms_animaux.push_back(a.first);
     }
 
-    int nb_enclos = 0;
+    int nb_enclos = 0; //stockage nombre d'enclos
 
     char continuer = 'o';
     int id_enclos = 1;
@@ -59,7 +59,7 @@ int main() {
         int choix;
         cin >> choix;
         if (choix < 1 || choix > noms_animaux.size()) {
-            cout << "- Choix invalide.\n";
+            cout << "Ton choix est invalide, cet animal n'existe pas. Choisis-en un dans la liste cette fois ! \n";
             continue;
         }
 
@@ -68,24 +68,24 @@ int main() {
         string habitat = animaux[nom_animal][1];
 
         zoo.ajouter_enclos(Enclos(id_enclos++, nom_animal, regime, habitat));
-        nb_enclos++;
-        cout << "- Enclos pour " << nom_animal << " cree avec succes !\n";
+        nb_enclos++; //augmente le nombre d'enclos a chaque nouvelle création
+        cout << "- Voici ton enclos pour :  " << nom_animal << " il a ete cree avec succes !\n";
 
-        cout << "- Souhaites-tu creer un autre enclos ? (o/n) : " << endl;
+        cout << "- Souhaites-tu creer un autre enclos ? (o/n) : " << endl; //donne le choix de créer plusieurs enclos
         cin >> continuer;
     }
     
-    cout << "- Maintenant que nous avons les enclos il faudrait les remplir" << endl;
-
+    cout << "\n - Maintenant que nous avons les enclos il faudrait les remplir" << endl;
     cout << "\n--- Ajout des animaux dans les enclos ---\n";
 
+    int nb_animaux; //variable pour stocker le nombre d'animaux créés
     for (int i = 0; i < nb_enclos; i++) {
 
         Enclos& enclos = zoo.getEnclos(i);
 
-        cout << "\nEnclos numéro : " << enclos.getID() << endl;
+        cout << "\nEnclos numero : " << enclos.getID() << endl;
 
-        int nb_animaux;
+
         cout << "- Combien d'animaux veux-tu ajouter dans cet enclos ? ";
         cin >> nb_animaux;
 
@@ -94,32 +94,75 @@ int main() {
             cin.ignore(10000, '\n');
             cout << "- Nombre invalide, passons a l'enclos suivant.\n";
             continue;
+        }
+
+        for (int j = 0; j < nb_animaux; j++) {
+
+            string nom_animal;
+            cout << "Nom de l'animal numero : " << j + 1 << " de ton enclos : \n";
+            cin >> nom_animal;
+
+            int id_animal = j + 1;
+
+            enclos.ajout_animal(Animal(id_animal, nom_animal));
+        }
     }
 
-    for (int j = 0; j < nb_animaux; j++) {
+    cout << "\n- Recapitulons, on a des enclos et des animaux, mais qui va s'en occuper maintenant ? Creeons des soigneurs pour prendre soin d'eux !" << endl;
+    vector<bool> enclos_occupe(nb_enclos, false);
+    vector<Soigneur> soigneurs;
 
-        string nom_animal;
-        cout << "Nom de l'animal numéro" << j + 1 << " de ton enclos : ";
-        cin >> nom_animal;
-
-        int id_animal = j + 1;
-
-        enclos.ajout_animal(Animal(id_animal, nom_animal));
-    }
-}
-
-}
-/*
     cout << "\n-- Creation des soigneurs --" << endl;
-    Soigneur soigneur1("Broillet", "Virgile");
-    Soigneur soigneur2("Quoi", "Feur");
 
-    soigneur1.assigner_enclos(&zoo.getEnclos(0));
-    soigneur2.assigner_enclos(&zoo.getEnclos(1));
+    int nb_soigneurs;
+    cout << "\n- Combien de soigneurs veux-tu creer ? "<< endl;
+    cin >> nb_soigneurs;
 
-    zoo.ajouter_soigneur(soigneur1);
-    zoo.ajouter_soigneur(soigneur2);
+    if (!cin || nb_soigneurs <= 0) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Le nombre que tu as entre est invalide, alors aucun soigneur n'a ete cree.\n";
+    }
 
+    else {
+        for (int i = 0; i < nb_soigneurs; i++) {
+
+            string nom, prenom;
+            cout << "Soigneur numero :" << i + 1 << endl;
+            cout << "Nom : ";
+            cin >> nom;
+            cout << "Prenom : ";
+            cin >> prenom;
+
+            soigneurs.emplace_back(nom, prenom);
+
+            cout << "\n- Choisis l'enclos a lui assigner chaque enclos aura son propre soigneur: ";
+            for (int j = 0; j < nb_enclos; j++) {
+                if (!enclos_occupe[j]) {
+                    cout << j + 1 << " - Enclos numero" << zoo.getEnclos(j).getID() << endl;
+                }
+            }
+            int choix_enclos;
+            cin >> choix_enclos;
+
+            if (!cin || choix_enclos < 1 || choix_enclos > nb_enclos || enclos_occupe[choix_enclos - 1]) {
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout << "\n- Ton choix est invalide, le soigneur n'a pas ete assigne a un enclos.\n";
+                continue;
+            }
+
+            soigneurs.back().assigner_enclos(&zoo.getEnclos(choix_enclos - 1));
+            enclos_occupe[choix_enclos - 1] = true;
+
+            cout << "\nLe soigneur a ete assigne a l'enclos numero : "
+             << zoo.getEnclos(choix_enclos - 1).getID() << endl;
+    
+        }
+    }
+}
+
+/*
     soigneur1.afficher_informations();
     soigneur2.afficher_informations();
 
@@ -129,7 +172,9 @@ int main() {
     soigneur1.remplir_nourriture_enclos(zoo.getDateActuelle());
     soigneur2.remplir_nourriture_enclos(zoo.getDateActuelle());
 
-    cout << "\n-- Creation des visiteurs --" << endl;
+
+*/
+    /*cout << "\n-- Creation des visiteurs --" << endl;
     Visiteur visiteur1("Feur", "Nugget", 1 );
     
     visiteur1.acheter_billet("jeune (- de 18 ans)", 10);
