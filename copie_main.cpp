@@ -160,20 +160,100 @@ int main() {
     
         }
     }
+
+    cout << "\n - Super, tu as cree ton zoo ! Maintenant passons aux choses serieuse, il faut que tu t'en occupes." << endl;
+   int choix_menu = -1;
+
+while (choix_menu != 0) {
+
+    cout << "\n===== MENU =====\n";
+    cout << "1 - Afficher les informations des enclos\n";
+    cout << "2 - Afficher les informations des soigneurs\n";
+    cout << "3 - Nourrir les animaux (choisir un soigneur)\n";
+    cout << "4 - Nourrir les animaux (tous les soigneurs)\n";
+    cout << "5 - Passer au jour suivant\n";
+    cout << "0 - Quitter\n";
+    cout << "Votre choix : ";
+
+    cin >> choix_menu;
+
+    if (!cin) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Entree invalide.\n";
+        continue;
+    }
+
+    switch (choix_menu) {
+
+        case 1: {
+            cout << "\n--- Informations des enclos ---\n";
+            for (int i = 0; i < nb_enclos; i++) {
+                zoo.getEnclos(i).afficher_informations();
+            }
+            break;
+        }
+
+        case 2: {
+            cout << "\n--- Informations des soigneurs ---\n";
+            for (Soigneur& s : soigneurs) {
+                s.afficher_informations();
+            }
+            break;
+        }
+
+        case 3: {
+            cout << "\n--- Choisir un soigneur ---\n";
+            for (size_t i = 0; i < soigneurs.size(); i++) {
+                cout << i + 1 << " - ";
+                soigneurs[i].afficher_informations();
+            }
+
+            int choix_soigneur;
+            cout << "Numero du soigneur : ";
+            cin >> choix_soigneur;
+
+            if (!cin || choix_soigneur < 1 || choix_soigneur > soigneurs.size()) {
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout << "Choix invalide.\n";
+                break;
+            }
+
+            soigneurs[choix_soigneur - 1]
+                .remplir_nourriture_enclos(zoo.getDateActuelle());
+
+            break;
+        }
+
+        case 4: {
+            cout << "\n--- Tous les soigneurs nourrissent ---\n";
+            for (Soigneur& s : soigneurs) {
+                s.remplir_nourriture_enclos(zoo.getDateActuelle());
+            }
+            break;
+        }
+
+        case 5: {
+            cout << "\n--- Passage au jour suivant ---\n";
+            zoo.passer_jour();
+            break;
+        }
+
+        case 0:
+            cout << "Fermeture du menu du gerant.\n";
+            break;
+
+        default:
+            cout << "Choix invalide.\n";
+    }
 }
 
-/*
-    soigneur1.afficher_informations();
-    soigneur2.afficher_informations();
-
-    zoo.getEnclos(0).afficher_informations();
-    zoo.getEnclos(1).afficher_informations();
-
-    soigneur1.remplir_nourriture_enclos(zoo.getDateActuelle());
-    soigneur2.remplir_nourriture_enclos(zoo.getDateActuelle());
+}
 
 
-*/
+
+
     /*cout << "\n-- Creation des visiteurs --" << endl;
     Visiteur visiteur1("Feur", "Nugget", 1 );
     
@@ -186,8 +266,7 @@ int main() {
     zoo.ajouter_visiteur(visiteur1);
     zoo.ajouter_visiteur(visiteur2);
 
-    cout << "\n-- Passer un jour --" << endl;
-    zoo.passer_jour();
+    
 
     cout << "\n-- Statistique du jour 1  --" << endl;
     cout << "Nombre billets vendus jour 1 : " << zoo.nombre_billets_jour(zoo.getDernierJour()) << endl;
