@@ -18,7 +18,7 @@ void Enclos::ajout_animal(const Animal& nouvel_animal){
         }
     }
     animaux.push_back(nouvel_animal);
-    cout << "Animal ajoute avec succes dans l'enclos numero : " << enclos_id << endl;
+    cout << "Animal ajouter avec succes dans l'enclos #" << enclos_id << endl;
 };
 
 void Enclos::remplissage_nourriture(int date_actuelle){
@@ -34,7 +34,7 @@ void Enclos::remplissage_nourriture(int date_actuelle){
 };
 
 void Enclos::afficher_informations() const {
-    cout << "Enclos numero : " << enclos_id << "\n" 
+    cout << "Enclos #" << enclos_id << "\n" 
     << "    Race : " << race << "\n" 
     << "    Regime : " << regime << "\n" 
     << "    Type : " << type_enclos << "\n"
