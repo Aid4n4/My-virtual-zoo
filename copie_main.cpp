@@ -4,77 +4,145 @@
 #include "Soigneur.hpp"
 #include "Visiteur.hpp"
 #include "Statistique.hpp"
+#include "CSV_animaux.hpp"
+#include "Utilitaires.hpp"
 using namespace std;
 
 int main() {
     srand(time(nullptr));
-    string nom;
-    cout << "-- Bienvenue dans My Virtual Zoo --" << endl;
-    cout << " - Veuillez donner un nom a votre zoo : " << endl;
-    cin >> nom; //personalisation du nom du zoo
-    Zoo zoo(nom);
 
-    cout << "- Pour commencer, il faudrait creer des enclos pour pouvoir y mettre nos futurs animaux." << endl;
-    
-    map<string, vector<string>> animaux = { //tableau des animaux disponible pour le moment
-        {"Girafe", {"Herbivore", "Plaine"}},
-        {"Lion", {"Carnivore", "Savane"}},
-        {"Pingouin", {"Carnivore", "Banquise"}},
-        {"Loup", {"Carnivore", "Forêt"}},
-        {"Guepard", {"Carnivore", "Savane"}},
-        {"Koala", {"Herbivore", "Foret"}},
-        {"Tigre", {"Carnivore", "Foret"}},
-        {"Rhinoceros", {"herbivore", "Savane"}},
-        {"Dauphin", {"Carnivore", "Ocean"}},
-        {"Tortue terrestre", {"Herbivore", "Plaine"}},
-        {"Tortue aquatique", {"Herbivore", "Lac"}},
-        {"Ouistiti", {"Omnivore", "Foret"}},
-        {"Gorille", {"Herbivore", "Foret"}},
-        {"Perroquet", {"Herbivore", "Voliere"}},
-        {"Gazelle", {"herbivore", "Savane"}},
-        {"Crocodile", {"Carnivore", "Lac"}},
-        {"Lynx", {"Carnivore", "Foret"}},
-        {"Cobra", {"Carnivore", "Vivarium"}},
-        {"Panda Roux", {"Omnivore", "Foret"}},
-        {"Flamant Rose", {"Carnivore", "Lac"}},   
-    };
-        
-    vector<string> noms_animaux;
-    for (const auto& a : animaux) {
-        noms_animaux.push_back(a.first);
-    }
+    // Initialisation du zoo
+    string nom_zoo;
+    cout << "--- Bienvenue dans My Virtual Zoo ---" << endl;
+    pause(1);
+    cout << "-- Quel nom souhaitez-vous donner a votre zoo ? ";
+    cin >> nom_zoo;
+    Zoo zoo(nom_zoo);
+    cout << "\nVous avez cree avec succes le zoo \"" << nom_zoo << "\" :" << endl;
+    pause(1);
 
-    int nb_enclos = 0; //stockage nombre d'enclos
+    zoo.afficher_informations();
+    pause(2);
 
-    char continuer = 'o';
+    // Initialisation des enclos
+    vector<Animal_modele> animaux_disponibles = charger_animaux_csv("animaux.csv");
+    cout << "\n-- Pour commencer, vous allez devoir creer des enclos pour pouvoir y mettre vos futurs animaux." << endl;
+    pause(2);
+
+    char continuer = 'O';
     int id_enclos = 1;
-
-    while (continuer == 'o' || continuer == 'O') {
-        cout << "\n--- Creation d'un enclos ---\n";
-        cout << "- Choisis un animal :\n";
-
-        for (size_t i = 0; i < noms_animaux.size(); i++) {
-            cout << i + 1 << " - " << noms_animaux[i] << endl;
-        }
-        int choix;
-        cin >> choix;
-        if (choix < 1 || choix > noms_animaux.size()) {
-            cout << "Ton choix est invalide, cet animal n'existe pas. Choisis-en un dans la liste cette fois ! \n";
-            continue;
-        }
-
-        string nom_animal = noms_animaux[choix - 1];
-        string regime = animaux[nom_animal][0];
-        string habitat = animaux[nom_animal][1];
-
-        zoo.ajouter_enclos(Enclos(id_enclos++, nom_animal, regime, habitat));
-        nb_enclos++; //augmente le nombre d'enclos a chaque nouvelle création
-        cout << "- Voici ton enclos pour :  " << nom_animal << " il a ete cree avec succes !\n";
-
-        cout << "- Souhaites-tu creer un autre enclos ? (o/n) : " << endl; //donne le choix de créer plusieurs enclos
-        cin >> continuer;
-    }
+    int nb_enclos = 0;
     
+    while (continuer == 'O' || continuer == 'o') {
+        cout << "\n--- Creation de l'enclos #" << id_enclos << " ---\n";
+        pause(1);
+
+        int index_debut = 0;
+        int choix;
+        Animal_modele animal_choisi;
+
+        while (true) {
+            cout << "-- Veuillez choisir un animal :\n";
+            pause(1);
+
+            int index_fin = min(index_debut + 10, static_cast<int>(animaux_disponibles.size()));
+
+            for (int i = index_debut; i < index_fin; i++) {
+                cout << i + 1 << " - " << animaux_disponibles[i].race << endl;
+                pause(1);
+            }
+
+            if (index_fin < animaux_disponibles.size()) {
+                cout << index_fin + 1 << " - Afficher les 10 animaux suivants\n";
+                pause(1);
+            }
+            
+            cout << "0 - Creer une nouvelle espece\n";
+            pause(1);
+            cout << "\n-- Votre choix : ";
+            cin >> choix;
+            while (!cin >> choix) {
+                cin.clear();
+                cin.ignore(10000, '\n');
+                cout << "\nChoix invalide. Veuillez saisir un nombre valide : ";
+                cin >> choix;
+            }
+            if (choix == index_fin + 1 && index_fin < animaux_disponibles.size()) {
+                index_debut += 10;
+                continue;
+            }
+            else if (choix >= 1 && choix <= animaux_disponibles.size()) {
+                animal_choisi = animaux_disponibles[choix - 1];
+                break;
+            }
+            else if (choix == 0) {
+                cout << "\n--- Creation d'une nouvelle espece ---\n";
+                while (true) {
+                    cout << "- Race : ";
+                    cin >> animal_choisi.race;
+
+                    bool existe_deja = false;
+                    for (const auto& a : animaux_disponibles) {
+                        if (a.race == animal_choisi.race) {
+                            existe_deja = true;
+                            break;
+                        }
+                    }
+
+                    if (existe_deja) {
+                        cout << "\nCette espece existe deja dans la base. Veuillez en choisir une autre.\n";
+                    }
+                    else {
+                        break;
+                    }
+                }
+                
+                while (true) {
+                    cout << "- Regime (Omnivore / Carnivore / Herbivore) : ";
+                    cin >> animal_choisi.regime;
+                    if (animal_choisi.regime == "Omnivore" || animal_choisi.regime == "Carnivore" || animal_choisi.regime == "Herbivore") {
+                        break;
+                    }   
+                    else {
+                        cout << "\nRegime invalide. Veuillez saisir Omnivore, Carnivore ou Herbivore.\n";
+                    }
+                }
+                cout << "- Type d'enclos : ";
+                cin >> animal_choisi.type_enclos;
+
+                animaux_disponibles.push_back(animal_choisi);
+                ajouter_animal_csv("animaux.csv", animal_choisi);
+                cout << "\nNouvelle espece ajoutee avec succes a la base.\n";
+                pause(1);
+                break;
+            }
+            else {
+                cout << "\nChoix invalide. Recommencez.\n";
+                pause(1);
+            }
+        }
+
+        zoo.ajouter_enclos(Enclos(id_enclos++, animal_choisi.race, animal_choisi.regime, animal_choisi.type_enclos));
+        nb_enclos++; //augmente le nombre d'enclos a chaque nouvelle création
+
+        for (auto it = animaux_disponibles.begin(); it != animaux_disponibles.end(); ++it) {
+            if (it->race == animal_choisi.race) {
+                animaux_disponibles.erase(it);
+                break;
+            }
+        }
+
+        pause(2);
+        cout << "\n-- Souhaitez-vous creer un autre enclos ? (O/N) : "; //donne le choix de créer plusieurs enclos
+        cin >> continuer;
+
+        while (continuer != 'O' && continuer != 'o' && continuer != 'N' && continuer != 'n') {
+            cout << "\nChoix invalide. Veuillez repondre par O (oui) ou N (non) : ";
+            cin >> continuer;
+        }
+    }
+
+    // Initialisation des animaux dans les enclos
     cout << "\n - Maintenant que nous avons les enclos il faudrait les remplir" << endl;
     cout << "\n--- Ajout des animaux dans les enclos ---\n";
 
@@ -308,56 +376,3 @@ int main() {
     }
 
 }
-
-
-
-
-    /*cout << "\n-- Creation des visiteurs --" << endl;
-    Visiteur visiteur1("Feur", "Nugget", 1 );
-    
-    visiteur1.acheter_billet("jeune (- de 18 ans)", 10);
-    visiteur1.acheter_billet("retraite (65 et +)", 1);
-
-    Visiteur visiteur2("Aubert", "Lily", 2);
-    visiteur2.acheter_billet("etudiant (18-25 ans)", 2);
-
-    zoo.ajouter_visiteur(visiteur1);
-    zoo.ajouter_visiteur(visiteur2);
-
-    
-
-    cout << "\n-- Statistique du jour 1  --" << endl;
-    cout << "Nombre billets vendus jour 1 : " << zoo.nombre_billets_jour(zoo.getDernierJour()) << endl;
-    cout << "Benefice jour 1 : " << zoo.benefice_jour(zoo.getDernierJour()) << endl;
-
-    cout << "\n-- Jour 2 --" << endl;
-    soigneur1.verification_statut_tous();
-    soigneur2.verification_statut_tous();
-
-    soigneur1.soigner(girafe1);
-    soigneur1.soigner(girafe2);
-    soigneur2.soigner(lion1);
-    soigneur2.soigner(lion2);
-
-    soigneur1.remplir_nourriture_enclos(zoo.getDateActuelle());
-    soigneur2.remplir_nourriture_enclos(zoo.getDateActuelle());
-
-    soigneur1.verification_statut_tous();
-    soigneur2.verification_statut_tous();
-
-    cout << "\n-- Creation des visiteurs --" << endl;
-    Visiteur visiteur3("fghtj", "ghytj", 3);
-
-    visiteur3.acheter_billet("jeune (- de 18 ans)", 10);
-    visiteur3.acheter_billet("retraite (65 et +)", 1);
-    
-    zoo.ajouter_visiteur(visiteur3);
-
-    cout << "\n-- Passer un jour --" << endl;
-    zoo.passer_jour();
-
-    Statistique stats(zoo);
-    cout << "Nombre billets vendus jour ALL : " << stats.nombre_billets_totaux() << endl;
-    cout << "Benefice jour ALL : " << stats.calculer_benefice_total() << endl;
-    return 0;*/
-
