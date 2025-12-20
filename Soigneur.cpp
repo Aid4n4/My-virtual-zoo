@@ -61,3 +61,9 @@ void Soigneur::afficher_informations() const {
         cout << "Aucun enclos assigne" << endl;
     }
 };
+
+Enclos* Soigneur::getEnclos() const {
+    return enclos_assigne;
+};
+
+
