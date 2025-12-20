@@ -2,6 +2,7 @@
 #include <map>
 #include <cstdlib>
 #include "Zoo.hpp"
+#include "Utilitaires.hpp"
 using namespace std;
 
 Zoo::Zoo(const string& _nom) : nom(_nom), date_actuelle(1) {}
@@ -31,17 +32,17 @@ void Zoo::ajouter_soigneur(const Soigneur& _soigneur) {
 void Zoo::ajouter_enclos(const Enclos& _enclos) {
     for (const auto& e : enclos) {
         if (e.getID() == _enclos.getID()) {
-            cout << "Erreur : un enclos avec l'ID " << _enclos.getID() << " existe deja dans cet enclos." << endl;
+            cout << "Erreur : un enclos avec l'ID " << _enclos.getID() << " existe deja dans le zoo." << endl;
             return; 
         }
 
         if (e.getRace() == _enclos.getRace()) {
-            cout << "Erreur : un enclos avec la race \"" << _enclos.getRace() << "\" existe deja dans cet enclos." << endl;
+            cout << "Erreur : un enclos avec la race \"" << _enclos.getRace() << "\" existe deja dans le zoo." << endl;
             return;
         }
     }
     enclos.push_back(_enclos);
-    cout << "Enclos #" << _enclos.getID() << " ajouter avec succes au zoo \"" << nom << "\"." << endl;
+    cout << "\nEnclos #" << _enclos.getID() << " contenant des \"" << _enclos.getRace() << "\" ajouter avec succes au zoo \"" << nom << "\"." << endl;
 };
 
 void Zoo::simuler_sante_animaux(){ //Donne aux animaux un état de santé aléatoire (en bonne santé ou pas) (true/false)
@@ -117,10 +118,13 @@ void Zoo::afficher_informations() const {
     for (const auto& e : enclos) {
         total_animaux += e.getNombreAnimaux();
     }
-    cout << "Zoo : " << nom << "\n" 
-    << "    Jour actuel : " << date_actuelle << "\n" 
-    << "    Nombre d'enclos : " << enclos.size() << "\n" 
-    << "    Nombre total d'animaux : " << total_animaux << endl;
+    cout << "- Nom du zoo : " << nom;
+    pause(1);
+    cout << "\n- Jour actuel : " << date_actuelle;
+    pause(1);
+    cout << "\n- Nombre d'enclos : " << enclos.size();
+    pause(1);
+    cout << "\n- Nombre total d'animaux : " << total_animaux << endl;
 };
 
 string Zoo::getNom() const {
