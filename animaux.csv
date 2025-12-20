@@ -1,0 +1,21 @@
+race,regime,type_enclos
+Girafe,Herbivore,Plaine
+Lion,Carnivore,Savane
+Pingouin,Carnivore,Banquise
+Loup,Carnivore,Foret
+Guepard,Carnivore,Savane
+Koala,Herbivore,Foret
+Tigre,Carnivore,Foret
+Rhinoceros,Herbivore,Savane
+Dauphin,Carnivore,Delphinarium
+Tortue terrestre,Herbivore,Terrarium
+Tortue aquatique,Herbivore,Aquaterrarium
+Ouistiti,Omnivore,Foret
+Gorille,Herbivore,Foret
+Perroquet,Herbivore,Voliere
+Gazelle,Herbivore,Savane
+Crocodile,Carnivore,Lac
+Lynx,Carnivore,Foret
+Cobra,Carnivore,Vivarium
+Panda Roux,Omnivore,Foret
+Flamant Rose,Carnivore,LacChat,Omnivore,Chatiere
