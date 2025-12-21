@@ -7,24 +7,30 @@ using namespace std;
 
 Zoo::Zoo(const string& _nom) : nom(_nom), date_actuelle(1) {}
 
+Zoo::~Zoo() {
+    for (auto soigneur : soigneurs) {
+        delete soigneur;
+    }
+};
+
 void Zoo::ajouter_visiteur(const Visiteur& _visiteur){ // ajoute des visiteurs dans le parc
     for (const auto& v : visiteurs) {
         if (v.getNumeroClient() == _visiteur.getNumeroClient()) {
-            cout << "Erreur : un visiteur avec le numero client " << _visiteur.getNumeroClient() << " existe deja dans le zoo." << endl;
+            cout << "\nErreur : un visiteur avec le numero client " << _visiteur.getNumeroClient() << " existe deja dans le zoo." << endl;
             return; 
         }
     }
     visiteurs.push_back(_visiteur);
 };
 
-bool Zoo::ajouter_soigneur(Soigneur& _soigneur, Enclos& _enclos) {
+bool Zoo::ajouter_soigneur(Soigneur* _soigneur, Enclos& _enclos) {
     for (const auto& s : soigneurs) {
-        if (s.getNom() == _soigneur.getNom() && s.getPrenom() == _soigneur.getPrenom()) {
-            cout << "\nErreur : le soigneur \"" << _soigneur.getNom() << " " << _soigneur.getPrenom() << "\" existe deja dans le zoo.\n" << endl;
+        if (s->getNom() == _soigneur->getNom() && s->getPrenom() == _soigneur->getPrenom()) {
+            cout << "\nErreur : le soigneur \"" << _soigneur->getNom() << " " << _soigneur->getPrenom() << "\" existe deja dans le zoo.\n" << endl;
             return false; 
         }
     }
-    _soigneur.assigner_enclos(&_enclos);
+    _soigneur->assigner_enclos(&_enclos);
     soigneurs.push_back(_soigneur);
     return true;
 };
@@ -32,7 +38,7 @@ bool Zoo::ajouter_soigneur(Soigneur& _soigneur, Enclos& _enclos) {
 void Zoo::ajouter_enclos(const Enclos& _enclos) {
     for (const auto& e : enclos) {
         if (e.getID() == _enclos.getID()) {
-            cout << "Erreur : un enclos avec l'ID " << _enclos.getID() << " existe deja dans le zoo." << endl;
+            cout << "\nErreur : un enclos avec l'ID " << _enclos.getID() << " existe deja dans le zoo." << endl;
             return; 
         }
 
@@ -87,7 +93,7 @@ void Zoo::passer_jour(){ //passe au jour suivant de la simulation si certaines c
     for(const auto& e : enclos) {
         for (const auto& animal : e.getAnimaux()) {
             if (!animal.getSante() || !animal.getSatiete()) { // si les animaux sont nourris et en bonne santé
-                cout << "Vous ne pouvez pas passer au jour suivant, occupez-vous de tous les animaux avant ! " << endl; // sinon affiche ce message
+                cout << "\nVous ne pouvez pas passer au jour suivant, occupez-vous de tous les animaux avant ! " << endl; // sinon affiche ce message
                 return; // Condition d'arrêt
             }
         }
@@ -175,11 +181,11 @@ const Enclos& Zoo::getEnclos(size_t index) const{
     return enclos.at(index);
 };
 
-vector<Soigneur>& Zoo::getSoigneurs() {
+vector<Soigneur*>& Zoo::getSoigneurs() {
     return soigneurs;
 };
 
-const vector<Soigneur>& Zoo::getSoigneurs() const {
+const vector<Soigneur*>& Zoo::getSoigneurs() const {
     return soigneurs;
 };
 
