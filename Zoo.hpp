@@ -21,7 +21,7 @@ public:
     Zoo(const string& _nom);
     
     void ajouter_visiteur(const Visiteur& _visiteur);
-    void ajouter_soigneur(const Soigneur& _soigneur);
+    bool ajouter_soigneur(Soigneur& _soigneur, Enclos& _enclos);
     void ajouter_enclos(const Enclos& _enclos);
     void simuler_sante_animaux();
     void passer_jour();
@@ -34,6 +34,8 @@ public:
     int getDernierJour() const;
     Enclos& getEnclos(size_t index); // version modifiable
     const Enclos& getEnclos(size_t index) const; // version lecture
+    vector<Soigneur>& getSoigneurs(); // version modifiable
+    const vector<Soigneur>& getSoigneurs() const; // version lecture
     map<int, vector<Visiteur>> getBilletsParJour() const;
 };
 
