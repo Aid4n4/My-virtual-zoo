@@ -23,7 +23,7 @@ void Soigneur::assigner_enclos(Enclos* _enclos_assigne) {
     enclos_assigne = _enclos_assigne;
     _enclos_assigne->setSoigneur(this);
 
-    cout << "Soigneur assigne avec succes a l'enclos #" << _enclos_assigne->getID() << "." << endl;
+    cout << "\nSoigneur \"" << nom << " " << prenom << "\" assigner avec succes a l'enclos #" << _enclos_assigne->getID() << "." << endl;
 };
 
 void Soigneur::verification_statut_tous() const {
@@ -65,5 +65,3 @@ void Soigneur::afficher_informations() const {
 Enclos* Soigneur::getEnclos() const {
     return enclos_assigne;
 };
-
-
