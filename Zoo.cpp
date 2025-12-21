@@ -18,15 +18,16 @@ void Zoo::ajouter_visiteur(const Visiteur& _visiteur){ // ajoute des visiteurs d
     cout << "Visiteur ajoute avec succes." << endl;
 };
 
-void Zoo::ajouter_soigneur(const Soigneur& _soigneur) {
+bool Zoo::ajouter_soigneur(Soigneur& _soigneur, Enclos& _enclos) {
     for (const auto& s : soigneurs) {
         if (s.getNom() == _soigneur.getNom() && s.getPrenom() == _soigneur.getPrenom()) {
-            cout << "Erreur : le soigneur " << _soigneur.getNom() << " " << _soigneur.getPrenom() << " existe deja dans le zoo." << endl;
-            return; 
+            cout << "\nErreur : le soigneur \"" << _soigneur.getNom() << " " << _soigneur.getPrenom() << "\" existe deja dans le zoo.\n" << endl;
+            return false; 
         }
     }
+    _soigneur.assigner_enclos(&_enclos);
     soigneurs.push_back(_soigneur);
-    cout << "Soigneur ajoute avec succes." << endl;
+    return true;
 };
 
 void Zoo::ajouter_enclos(const Enclos& _enclos) {
@@ -145,6 +146,14 @@ Enclos& Zoo::getEnclos(size_t index){
 
 const Enclos& Zoo::getEnclos(size_t index) const{
     return enclos.at(index);
+};
+
+vector<Soigneur>& Zoo::getSoigneurs() {
+    return soigneurs;
+};
+
+const vector<Soigneur>& Zoo::getSoigneurs() const {
+    return soigneurs;
 };
 
 map<int, vector<Visiteur>> Zoo::getBilletsParJour() const{
