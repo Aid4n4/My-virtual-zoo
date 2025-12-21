@@ -14,14 +14,16 @@ private:
     string nom;
     int date_actuelle;
     vector<Enclos> enclos;
-    vector<Soigneur> soigneurs;
+    vector<Soigneur*> soigneurs;
     vector<Visiteur> visiteurs;
     map<int, vector<Visiteur>> billets_par_jour;
 public:
     Zoo(const string& _nom);
+
+    ~Zoo();
     
     void ajouter_visiteur(const Visiteur& _visiteur);
-    bool ajouter_soigneur(Soigneur& _soigneur, Enclos& _enclos);
+    bool ajouter_soigneur(Soigneur* _soigneur, Enclos& _enclos);
     void ajouter_enclos(const Enclos& _enclos);
     void simuler_sante_animaux();
     void generer_visiteurs_aleatoires();
@@ -35,8 +37,8 @@ public:
     int getDernierJour() const;
     Enclos& getEnclos(size_t index); // version modifiable
     const Enclos& getEnclos(size_t index) const; // version lecture
-    vector<Soigneur>& getSoigneurs(); // version modifiable
-    const vector<Soigneur>& getSoigneurs() const; // version lecture
+    vector<Soigneur*>& getSoigneurs(); // version modifiable
+    const vector<Soigneur*>& getSoigneurs() const; // version lecture
     map<int, vector<Visiteur>> getBilletsParJour() const;
 };
 
