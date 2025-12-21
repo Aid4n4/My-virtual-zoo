@@ -5,20 +5,21 @@ using namespace std;
 
 Enclos::Enclos(int _id, const string& _race, const string& _regime, const string& _type_enclos) : enclos_id(_id), race(_race), regime(_regime), type_enclos(_type_enclos), nourriture(false), soigneur(nullptr) {}
 
-void Enclos::ajout_animal(const Animal& nouvel_animal){
+bool Enclos::ajout_animal(const Animal& nouvel_animal){
     for (const auto& animal : animaux) {
         if (animal.getNumero() == nouvel_animal.getNumero()) {
             cout << "Erreur : un animal avec le numero " << nouvel_animal.getNumero() << " existe deja dans cet enclos." << endl;
-            return; 
+            return false; 
         }
 
         if (animal.getNom() == nouvel_animal.getNom()) {
             cout << "\nErreur : un animal avec le nom \"" << nouvel_animal.getNom() << "\" existe deja dans cet enclos." << endl;
-            return; 
+            return false; 
         }
     }
     animaux.push_back(nouvel_animal);
     cout << "\n" << race << " \"" << nouvel_animal.getNom() << "\" ajouter avec succes dans l'enclos #" << enclos_id << "." << endl;
+    return true;
 };
 
 void Enclos::remplissage_nourriture(int date_actuelle){
