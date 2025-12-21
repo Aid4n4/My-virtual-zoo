@@ -13,12 +13,12 @@ void Enclos::ajout_animal(const Animal& nouvel_animal){
         }
 
         if (animal.getNom() == nouvel_animal.getNom()) {
-            cout << "Erreur : un animal avec le nom \"" << nouvel_animal.getNom() << "\" existe deja dans cet enclos." << endl;
+            cout << "\nErreur : un animal avec le nom \"" << nouvel_animal.getNom() << "\" existe deja dans cet enclos." << endl;
             return; 
         }
     }
     animaux.push_back(nouvel_animal);
-    cout << "Animal ajouter avec succes dans l'enclos #" << enclos_id << endl;
+    cout << "\n" << race << " \"" << nouvel_animal.getNom() << "\" ajouter avec succes dans l'enclos #" << enclos_id << "." << endl;
 };
 
 void Enclos::remplissage_nourriture(int date_actuelle){
