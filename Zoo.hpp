@@ -24,6 +24,7 @@ public:
     bool ajouter_soigneur(Soigneur& _soigneur, Enclos& _enclos);
     void ajouter_enclos(const Enclos& _enclos);
     void simuler_sante_animaux();
+    void generer_visiteurs_aleatoires();
     void passer_jour();
     int nombre_billets_jour(int jour) const;
     int benefice_jour(int jour) const;
