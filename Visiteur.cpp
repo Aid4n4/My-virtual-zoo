@@ -40,3 +40,7 @@ int Visiteur::getNumeroClient() const {
 const map<string, int>& Visiteur::getBillets() const{
     return billets;
 };
+
+const map<string, int>& Visiteur::getPrixBillet() {
+    return prix_billet;
+};
