@@ -119,13 +119,13 @@ void Zoo::afficher_informations() const {
     for (const auto& e : enclos) {
         total_animaux += e.getNombreAnimaux();
     }
-    cout << "- Nom du zoo : " << nom;
+    cout << "- Nom du zoo : " << nom << endl;
     pause(1);
-    cout << "\n- Jour actuel : " << date_actuelle;
+    cout << "- Jour actuel : " << date_actuelle << endl;
     pause(1);
-    cout << "\n- Nombre d'enclos : " << enclos.size();
+    cout << "- Nombre d'enclos : " << enclos.size() << endl;
     pause(1);
-    cout << "\n- Nombre total d'animaux : " << total_animaux << endl;
+    cout << "- Nombre total d'animaux : " << total_animaux << endl;
 };
 
 string Zoo::getNom() const {
