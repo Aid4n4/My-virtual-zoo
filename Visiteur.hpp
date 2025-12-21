@@ -22,6 +22,7 @@ public:
 
     int getNumeroClient() const;
     const map<string, int>& getBillets() const;
+    static const map<string, int>& getPrixBillet();
 };
 
 #endif
