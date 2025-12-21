@@ -22,7 +22,7 @@ private:
 public:
     Enclos(int _id, const string& _race, const string& _regime, const string& _type_enclos);
 
-    void ajout_animal(const Animal& nouvel_animal);
+    bool ajout_animal(const Animal& nouvel_animal);
     void remplissage_nourriture(int date_actuelle);
     void afficher_informations() const;
 
