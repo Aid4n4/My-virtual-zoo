@@ -15,7 +15,6 @@ void Zoo::ajouter_visiteur(const Visiteur& _visiteur){ // ajoute des visiteurs d
         }
     }
     visiteurs.push_back(_visiteur);
-    cout << "Visiteur ajoute avec succes." << endl;
 };
 
 bool Zoo::ajouter_soigneur(Soigneur& _soigneur, Enclos& _enclos) {
@@ -56,6 +55,33 @@ void Zoo::simuler_sante_animaux(){ //Donne aux animaux un état de santé aléat
     }
 };
 
+void Zoo::generer_visiteurs_aleatoires(){ //génère des visiteurs aléatoires pour le zoo
+    vector<string> noms = {"Dupont", "Martin", "Bernard", "Dubois", "Thomas", "Robert", "Richard", "Petit", "Durand", "Leroy"};
+    vector<string> prenoms = {"Jean", "Marie", "Pierre", "Michel", "Sophie", "Nathalie", "Laurent", "Isabelle", "Philippe", "Christine"};
+    int nb_visiteurs = rand() % 5 + 1;
+    
+    for (int i = 0; i < nb_visiteurs; i++) {
+        string nom = noms[rand() % noms.size()];
+        string prenom = prenoms[rand() % prenoms.size()];
+        int numero_client = visiteurs.size() + 1;
+
+        Visiteur visiteur(nom, prenom, numero_client);
+
+        int nb_billets = rand() % 10 + 1;
+
+        vector<string> types_billet;
+        for (const auto& billet : Visiteur::getPrixBillet()) {
+            types_billet.push_back(billet.first);
+        }
+        for (int j = 0; j < nb_billets; j++) {
+            string type_aleatoire = types_billet[rand() % types_billet.size()];
+            visiteur.acheter_billet(type_aleatoire, 1);
+        }
+
+        ajouter_visiteur(visiteur);
+    }
+};
+
 void Zoo::passer_jour(){ //passe au jour suivant de la simulation si certaines conditions sont remplies
     // Vérification avant de passer au jour suivant
     for(const auto& e : enclos) {
@@ -68,7 +94,8 @@ void Zoo::passer_jour(){ //passe au jour suivant de la simulation si certaines c
     }
     
     // Sinon passe au jour suivant
-    simuler_sante_animaux(); 
+    simuler_sante_animaux();
+    generer_visiteurs_aleatoires();
     billets_par_jour[date_actuelle] = visiteurs; // prends ensuite en compte le nombre de billets vendus
     date_actuelle++; //augmente d'un jour la date
     visiteurs.clear(); //remet a 0 le nombre de visiteurs de la journée pour les stats
