@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Enclos.hpp"
 #include "Soigneur.hpp"
+#include "Utilitaires.hpp"
 using namespace std;
 
 Enclos::Enclos(int _id, const string& _race, const string& _regime, const string& _type_enclos) : enclos_id(_id), race(_race), regime(_regime), type_enclos(_type_enclos), nourriture(false), soigneur(nullptr) {}
@@ -8,7 +9,7 @@ Enclos::Enclos(int _id, const string& _race, const string& _regime, const string
 bool Enclos::ajout_animal(const Animal& nouvel_animal){
     for (const auto& animal : animaux) {
         if (animal.getNumero() == nouvel_animal.getNumero()) {
-            cout << "Erreur : un animal avec le numero " << nouvel_animal.getNumero() << " existe deja dans cet enclos." << endl;
+            cout << "\nErreur : un animal avec le numero " << nouvel_animal.getNumero() << " existe deja dans cet enclos." << endl;
             return false; 
         }
 
@@ -22,9 +23,9 @@ bool Enclos::ajout_animal(const Animal& nouvel_animal){
     return true;
 };
 
-void Enclos::remplissage_nourriture(int date_actuelle){
-    if (nourriture == true){
-        return;
+bool Enclos::remplissage_nourriture(int date_actuelle){
+    if (nourriture){
+        return false;
     }
     
     nourriture = true;
@@ -32,19 +33,25 @@ void Enclos::remplissage_nourriture(int date_actuelle){
         animal.changement_statut_satiete(true);
         animal.setDernierDateNourri(date_actuelle);
     }
+    return true;
 };
 
 void Enclos::afficher_informations() const {
-    cout << "Enclos #" << enclos_id << "\n" 
-    << "    Race : " << race << "\n" 
-    << "    Regime : " << regime << "\n" 
-    << "    Type : " << type_enclos << "\n"
-    << "    Nombre d'animaux : " << animaux.size() << endl;
+    cout << "Enclos #" << enclos_id << endl;
+    pause(1);
+    cout << "- Race : " << race << endl;
+    pause(1);
+    cout << "- Regime : " << regime << endl;
+    pause(1);
+    cout << "- Type : " << type_enclos << endl;
+    pause(1);
+    cout << "- Nombre d'animaux : " << animaux.size() << endl;
+    pause(1);
     if (soigneur) {
-        cout << "    Soigneur assigne : " << soigneur->getNom() << " " << soigneur->getPrenom() << endl;
+        cout << "- Soigneur assigne : " << soigneur->getNom() << " " << soigneur->getPrenom() << endl;
     }
     else {
-        cout << "    Soigneur assigne : Aucun" << endl;
+        cout << "- Soigneur assigne : Aucun" << endl;
     }
 };
 
