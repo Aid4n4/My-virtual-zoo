@@ -25,11 +25,15 @@ public:
     void ajouter_visiteur(const Visiteur& _visiteur);
     bool ajouter_soigneur(Soigneur* _soigneur, Enclos& _enclos);
     void ajouter_enclos(const Enclos& _enclos);
+    bool tous_les_enclos_sont_remplis() const;
+    bool tous_les_animaux_sont_soignes() const;
     void simuler_sante_animaux();
     void generer_visiteurs_aleatoires();
     void passer_jour();
     int nombre_billets_jour(int jour) const;
     int benefice_jour(int jour) const;
+    int nombre_billets_total() const;
+    int benefice_total() const;
     void afficher_informations() const;
 
     string getNom() const;
