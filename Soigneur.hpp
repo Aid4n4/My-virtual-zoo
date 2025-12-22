@@ -19,8 +19,8 @@ public:
     void soigner(Animal& animal);
 
     void afficher_informations() const override;
+
     Enclos* getEnclos() const;
 };
 
 #endif
-
