@@ -43,7 +43,7 @@ void Zoo::ajouter_enclos(const Enclos& _enclos) {
         }
 
         if (e.getRace() == _enclos.getRace()) {
-            cout << "Erreur : un enclos avec la race \"" << _enclos.getRace() << "\" existe deja dans le zoo." << endl;
+            cout << "\nErreur : un enclos avec la race \"" << _enclos.getRace() << "\" existe deja dans le zoo." << endl;
             return;
         }
     }
@@ -51,11 +51,30 @@ void Zoo::ajouter_enclos(const Enclos& _enclos) {
     cout << "\nEnclos #" << _enclos.getID() << " contenant des \"" << _enclos.getRace() << "\" ajouter avec succes au zoo \"" << nom << "\"." << endl;
 };
 
+bool Zoo::tous_les_enclos_sont_remplis() const { //vérifie que tous les enclos ont de la nourriture
+    for (const auto& e : enclos) {
+        if (!e.getNourriture()) {
+            return false;
+        }
+    }
+    return true;
+};
+
+bool Zoo::tous_les_animaux_sont_soignes() const { //vérifie que tous les animaux sont en bonne santé
+    for (const auto& e : enclos) {
+        for (const auto& animal : e.getAnimaux()) {
+            if (!animal.getSante()) {
+                return false;
+            }
+        }
+    }
+    return true;
+};
+
 void Zoo::simuler_sante_animaux(){ //Donne aux animaux un état de santé aléatoire (en bonne santé ou pas) (true/false)
     for (auto& e : enclos){
         for (auto& animal : e.getAnimaux()) {
-            bool tirage = (rand() % 100) < 70;
-            cout << tirage << endl;
+            bool tirage = (rand() % 100) < 50; //50% de chances que l'animal soit en bonne santé
             animal.changement_statut_sante(tirage);
         }
     }
@@ -90,13 +109,14 @@ void Zoo::generer_visiteurs_aleatoires(){ //génère des visiteurs aléatoires p
 
 void Zoo::passer_jour(){ //passe au jour suivant de la simulation si certaines conditions sont remplies
     // Vérification avant de passer au jour suivant
-    for(const auto& e : enclos) {
-        for (const auto& animal : e.getAnimaux()) {
-            if (!animal.getSante() || !animal.getSatiete()) { // si les animaux sont nourris et en bonne santé
-                cout << "\nVous ne pouvez pas passer au jour suivant, occupez-vous de tous les animaux avant ! " << endl; // sinon affiche ce message
-                return; // Condition d'arrêt
-            }
-        }
+    if (!tous_les_enclos_sont_remplis()) {
+        cout << "\nVous ne pouvez pas passer au jour suivant, tous les mangeoirs doivent etre remplis de nourriture ! " << endl;
+        return; // Condition d'arrêt
+    }
+
+    if (!tous_les_animaux_sont_soignes()) {
+        cout << "\nVous ne pouvez pas passer au jour suivant, tous les animaux doivent etre en bonne sante ! " << endl;
+        return; // Condition d'arrêt
     }
     
     // Sinon passe au jour suivant
@@ -113,6 +133,16 @@ void Zoo::passer_jour(){ //passe au jour suivant de la simulation si certaines c
             animal.changement_statut_satiete(false); // donne faim aux animaux
         }
     }
+
+    cout << "\nJour " << getDernierJour() << " terminer." << endl;
+    pause(1);
+    cout << "\n--- Statistiques du jour " << getDernierJour() << " ---" << endl;
+    pause(1);
+    cout << "- Nombre de billets vendus : " << nombre_billets_jour(getDernierJour()) << endl;
+    pause(1);
+    cout << "- Benefice realise : " << benefice_jour(getDernierJour()) << " euros" << endl;
+    pause(2);
+    cout << "\nBienvenue au jour " << date_actuelle << " !" << endl;
 };
 
 int Zoo::nombre_billets_jour(int jour) const{ //calcule le nombre de billets vendus par jour
@@ -142,6 +172,26 @@ int Zoo::benefice_jour(int jour) const{ //calcule les bénéfices réalisés par
 
     for (const auto& v : it->second) {
         total += v.prix_total();
+    }
+
+    return total;
+};
+
+int Zoo::nombre_billets_total() const { //calcule le nombre total de billets vendus
+    int total = 0;
+    for (auto& paire : getBilletsParJour()) {
+        int jour = paire.first;
+        total += nombre_billets_jour(jour);
+    }
+    return total;
+};
+
+int Zoo::benefice_total() const { //calcule le bénéfice total réalisé par le parc
+    int total = 0;
+
+    for (auto& paire : getBilletsParJour()) {
+        int jour = paire.first;
+        total += benefice_jour(jour);
     }
 
     return total;
