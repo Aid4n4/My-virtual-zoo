@@ -3,7 +3,7 @@ Girafe,Herbivore,Plaine
 Lion,Carnivore,Savane
 Pingouin,Carnivore,Banquise
 Loup,Carnivore,Foret
-Guepard,Carnivore,Savane
+Guépard,Carnivore,Savane
 Koala,Herbivore,Foret
 Tigre,Carnivore,Foret
 Rhinoceros,Herbivore,Savane
@@ -17,5 +17,87 @@ Gazelle,Herbivore,Savane
 Crocodile,Carnivore,Lac
 Lynx,Carnivore,Foret
 Cobra,Carnivore,Vivarium
-Panda Roux,Omnivore,Foret
-Flamant Rose,Carnivore,Lac
+Panda roux,Omnivore,Foret
+Flamant rose,Carnivore,Lac
+Chameau,Herbivore,Plaine
+Elephant,Herbivore,Savane
+Zebre,Herbivore,Savane
+Hippopotame,Herbivore,Lac
+Orang-outan,Omnivore,Foret
+Jaguar,Carnivore,Foret
+Serpent,Carnivore,Vivarium
+Tigre blanc,Carnivore,Foret
+Panthère,Carnivore,Foret
+Autruche,Herbivore,Savane
+Koala roux,Herbivore,Foret
+Paresseux,Herbivore,Foret
+Ours brun,Omnivore,Foret
+Ours polaire,Carnivore,Banquise
+Manchot,Carnivore,Banquise
+Phoque,Carnivore,Lac
+Requin,Carnivore,Aquaterrarium
+Poisson clown,Herbivore,Aquaterrarium
+Iguane,Omnivore,Vivarium
+Chauve-souris,Omnivore,Foret
+Hérisson,Omnivore,Foret
+Renard,Omnivore,Foret
+Cerf,Herbivore,Foret
+Singe capucin,Omnivore,Foret
+Chien,Omnivore,Plaine
+Chat,Omnivore,Plaine
+Cheval,Herbivore,Prairie
+Vache,Herbivore,Prairie
+Cochon,Omnivore,Ferme
+Poule,Omnivore,Ferme
+Canard,Omnivore,Lac
+Oie,Omnivore,Lac
+Cygne,Omnivore,Lac
+Perche,Omnivore,Aquaterrarium
+Carpe,Herbivore,Aquaterrarium
+Saumon,Omnivore,Aquaterrarium
+Truite,Omnivore,Aquaterrarium
+Pieuvre,Carnivore,Aquaterrarium
+Calamar,Carnivore,Aquaterrarium
+Éléphant de mer,Carnivore,Lac
+Otarie,Carnivore,Lac
+Chien de prairie,Omnivore,Plaine
+Furet,Omnivore,Foret
+Belette,Omnivore,Foret
+Loutre,Omnivore,Lac
+Castor,Herbivore,Lac
+Marmotte,Herbivore,Plaine
+Bison,Herbivore,Prairie
+Aigle,Carnivore,Vol
+Faucon,Carnivore,Vol
+Hibou,Carnivore,Vol
+Chouette,Carnivore,Vol
+Perroquet ara,Herbivore,Voliere
+Pigeon,Herbivore,Vol
+Colibri,Herbivore,Voliere
+Canari,Herbivore,Voliere
+Moineau,Omnivore,Voliere
+Toucan,Omnivore,Voliere
+Ibis,Omnivore,Lac
+Cormoran,Carnivore,Lac
+Émeu,Herbivore,Savane
+Casoar,Omnivore,Foret
+Kangourou,Herbivore,Prairie
+Wallaby,Herbivore,Prairie
+Diable de Tasmanie,Carnivore,Foret
+Orignal,Herbivore,Foret
+Cerf rouge,Herbivore,Foret
+Renne,Herbivore,Foret
+Hippocampe,Carnivore,Aquaterrarium
+Méduse,Carnivore,Aquaterrarium
+Raie,Carnivore,Aquaterrarium
+Piranha,Carnivore,Aquaterrarium
+Poisson ange,Herbivore,Aquaterrarium
+Poisson lune,Omnivore,Aquaterrarium
+Anguille,Carnivore,Aquaterrarium
+Dragon de Komodo,Carnivore,Foret
+Caméléon,Omnivore,Vivarium
+Anaconda,Carnivore,Vivarium
+Boa,Carnivore,Vivarium
+Serpent corail,Carnivore,Vivarium
+Gecko,Omnivore,Vivarium
+Agame,Omnivore,Vivarium
