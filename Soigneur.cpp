@@ -3,8 +3,10 @@
 #include "Utilitaires.hpp"
 using namespace std;
 
+// Initialise le soigneur sans enclos assigné
 Soigneur::Soigneur(const string& _nom, const string& _prenom) : Personne(_nom, _prenom), enclos_assigne(nullptr) {};
 
+// Assigne un enclos au soigneur après vérifications
 void Soigneur::assigner_enclos(Enclos* _enclos_assigne) {
     if (!_enclos_assigne) {
         cout << "\nErreur : enclos invalide." << endl;
@@ -27,6 +29,7 @@ void Soigneur::assigner_enclos(Enclos* _enclos_assigne) {
     cout << "\nSoigneur \"" << nom << " " << prenom << "\" assigner avec succes a l'enclos #" << _enclos_assigne->getID() << "." << endl;
 };
 
+// Vérifie l'état de tous les animaux de l'enclos assigné
 void Soigneur::verification_statut_tous() const {
     if (!enclos_assigne) {
         cout << "\nAucun enclos n'est assigne au soigneur." << endl;
@@ -41,6 +44,7 @@ void Soigneur::verification_statut_tous() const {
     }
 };
 
+// Remplit le mangeoir de l'enclos assigné
 void Soigneur::remplir_nourriture_enclos(int date_actuelle) {
     if (!enclos_assigne) {
         cout << "\nAucun enclos n'est assigne au soigneur." << endl;
@@ -55,6 +59,7 @@ void Soigneur::remplir_nourriture_enclos(int date_actuelle) {
     cout << "\nMangeoir remplie avec succes pour l'enclos #" << enclos_assigne->getID() << "." << endl;
 };
 
+// Soigne un animal s'il est malade
 void Soigneur::soigner(Animal& animal) {
     if (animal.getSante() == false) {
         animal.changement_statut_sante(true);
@@ -64,6 +69,7 @@ void Soigneur::soigner(Animal& animal) {
     }
 };
 
+// Affiche les informations du soigneur
 void Soigneur::afficher_informations() const {
     cout << "Soigneur informations :" << endl;
     pause(1);
