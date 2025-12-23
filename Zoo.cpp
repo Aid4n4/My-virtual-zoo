@@ -5,14 +5,17 @@
 #include "Utilitaires.hpp"
 using namespace std;
 
+// Initialise le zoo avec un nom et une date de départ
 Zoo::Zoo(const string& _nom) : nom(_nom), date_actuelle(1) {}
 
+// Destructeur du zoo, libère la mémoire des soigneurs
 Zoo::~Zoo() {
     for (auto soigneur : soigneurs) {
         delete soigneur;
     }
 };
 
+// Ajoute un visiteur au zoo
 void Zoo::ajouter_visiteur(const Visiteur& _visiteur){ // ajoute des visiteurs dans le parc
     for (const auto& v : visiteurs) {
         if (v.getNumeroClient() == _visiteur.getNumeroClient()) {
@@ -23,6 +26,7 @@ void Zoo::ajouter_visiteur(const Visiteur& _visiteur){ // ajoute des visiteurs d
     visiteurs.push_back(_visiteur);
 };
 
+// Ajoute un soigneur au zoo et l'assigne à un enclos
 bool Zoo::ajouter_soigneur(Soigneur* _soigneur, Enclos& _enclos) {
     for (const auto& s : soigneurs) {
         if (s->getNom() == _soigneur->getNom() && s->getPrenom() == _soigneur->getPrenom()) {
@@ -35,6 +39,7 @@ bool Zoo::ajouter_soigneur(Soigneur* _soigneur, Enclos& _enclos) {
     return true;
 };
 
+// Ajoute un enclos au zoo
 void Zoo::ajouter_enclos(const Enclos& _enclos) {
     for (const auto& e : enclos) {
         if (e.getID() == _enclos.getID()) {
@@ -51,7 +56,8 @@ void Zoo::ajouter_enclos(const Enclos& _enclos) {
     cout << "\nEnclos #" << _enclos.getID() << " contenant des \"" << _enclos.getRace() << "\" ajouter avec succes au zoo \"" << nom << "\"." << endl;
 };
 
-bool Zoo::tous_les_enclos_sont_remplis() const { //vérifie que tous les enclos ont de la nourriture
+// Vérifie que tous les enclos ont de la nourriture
+bool Zoo::tous_les_enclos_sont_remplis() const {
     for (const auto& e : enclos) {
         if (!e.getNourriture()) {
             return false;
@@ -60,7 +66,8 @@ bool Zoo::tous_les_enclos_sont_remplis() const { //vérifie que tous les enclos 
     return true;
 };
 
-bool Zoo::tous_les_animaux_sont_soignes() const { //vérifie que tous les animaux sont en bonne santé
+// Vérifie que tous les animaux sont en bonne santé
+bool Zoo::tous_les_animaux_sont_soignes() const {
     for (const auto& e : enclos) {
         for (const auto& animal : e.getAnimaux()) {
             if (!animal.getSante()) {
@@ -71,29 +78,37 @@ bool Zoo::tous_les_animaux_sont_soignes() const { //vérifie que tous les animau
     return true;
 };
 
-void Zoo::simuler_sante_animaux(){ //Donne aux animaux un état de santé aléatoire (en bonne santé ou pas) (true/false)
+// Simule la santé des animaux du zoo (aléatoire)
+void Zoo::simuler_sante_animaux(){
     for (auto& e : enclos){
         for (auto& animal : e.getAnimaux()) {
-            bool tirage = (rand() % 100) < 50; //50% de chances que l'animal soit en bonne santé
+            bool tirage = (rand() % 100) < 50; // 50% de chances que l'animal soit en bonne santé
             animal.changement_statut_sante(tirage);
         }
     }
 };
 
-void Zoo::generer_visiteurs_aleatoires(){ //génère des visiteurs aléatoires pour le zoo
+// Génère des visiteurs aléatoires pour le zoo
+void Zoo::generer_visiteurs_aleatoires(){
+    // Listes de noms et prénoms pour la génération aléatoire
     vector<string> noms = {"Dupont", "Martin", "Bernard", "Dubois", "Thomas", "Robert", "Richard", "Petit", "Durand", "Leroy"};
     vector<string> prenoms = {"Jean", "Marie", "Pierre", "Michel", "Sophie", "Nathalie", "Laurent", "Isabelle", "Philippe", "Christine"};
-    int nb_visiteurs = rand() % 5 + 1;
+
+    int nb_visiteurs = rand() % 5 + 1; // Génère entre 1 et 5 visiteurs aléatoires
     
+    // Boucle de création des visiteurs
     for (int i = 0; i < nb_visiteurs; i++) {
+        // Génération aléatoire du nom, prénom et numéro client
         string nom = noms[rand() % noms.size()];
         string prenom = prenoms[rand() % prenoms.size()];
         int numero_client = visiteurs.size() + 1;
 
+        // Création du visiteur
         Visiteur visiteur(nom, prenom, numero_client);
 
-        int nb_billets = rand() % 10 + 1;
+        int nb_billets = rand() % 10 + 1; // Chaque visiteur achète entre 1 et 10 billets
 
+        // Achat aléatoire de billets
         vector<string> types_billet;
         for (const auto& billet : Visiteur::getPrixBillet()) {
             types_billet.push_back(billet.first);
@@ -103,55 +118,69 @@ void Zoo::generer_visiteurs_aleatoires(){ //génère des visiteurs aléatoires p
             visiteur.acheter_billet(type_aleatoire, 1);
         }
 
+        // Ajout du visiteur au zoo
         ajouter_visiteur(visiteur);
     }
 };
 
-void Zoo::passer_jour(){ //passe au jour suivant de la simulation si certaines conditions sont remplies
-    // Vérification avant de passer au jour suivant
+// Passe au jour suivant et met à jour les états du zoo
+void Zoo::passer_jour(){
+    // Vérifie que tous les enclos ont de la nourriture
     if (!tous_les_enclos_sont_remplis()) {
         cout << "\nVous ne pouvez pas passer au jour suivant, tous les mangeoirs doivent etre remplis de nourriture ! " << endl;
         return; // Condition d'arrêt
     }
 
+    // Vérifie que tous les animaux sont en bonne santé
     if (!tous_les_animaux_sont_soignes()) {
         cout << "\nVous ne pouvez pas passer au jour suivant, tous les animaux doivent etre en bonne sante ! " << endl;
         return; // Condition d'arrêt
     }
     
-    // Sinon passe au jour suivant
+    // Met à jour la santé des animaux et génère de nouveaux visiteurs
     simuler_sante_animaux();
     generer_visiteurs_aleatoires();
-    billets_par_jour[date_actuelle] = visiteurs; // prends ensuite en compte le nombre de billets vendus
-    date_actuelle++; //augmente d'un jour la date
-    visiteurs.clear(); //remet a 0 le nombre de visiteurs de la journée pour les stats
 
-    // Réinitialise l'état de faim des animaux
+    // Enregistre les visiteurs du jour et réinitialise la liste
+    billets_par_jour[date_actuelle] = visiteurs;
+    date_actuelle++;
+    visiteurs.clear();
+
+    // Réinitialise la nourriture des enclos et la satiété des animaux
     for (auto& e : enclos) {
         e.setNourriture(false);
         for (auto& animal : e.getAnimaux()) {
-            animal.changement_statut_satiete(false); // donne faim aux animaux
+            animal.changement_statut_satiete(false);
         }
     }
-
+    
+    // Annonce la fin du jour
     cout << "\nJour " << getDernierJour() << " terminer." << endl;
     pause(1);
+
+    // Affiche les statistiques du jour précédent
     cout << "\n--- Statistiques du jour " << getDernierJour() << " ---" << endl;
     pause(1);
     cout << "- Nombre de billets vendus : " << nombre_billets_jour(getDernierJour()) << endl;
     pause(1);
     cout << "- Benefice realise : " << benefice_jour(getDernierJour()) << " euros" << endl;
     pause(2);
+
+    // Accueille le jour suivant
     cout << "\nBienvenue au jour " << date_actuelle << " !" << endl;
 };
 
-int Zoo::nombre_billets_jour(int jour) const{ //calcule le nombre de billets vendus par jour
+// Calcule le nombre de billets vendus pour un jour donné
+int Zoo::nombre_billets_jour(int jour) const{
     int total = 0;
+
+    // Recherche le jour dans l'historique
     auto it = billets_par_jour.find(jour);
     if (it == billets_par_jour.end()){
         return 0;
     }
 
+    // Compte les billets vendus ce jour-là
     for (const auto& v : it->second) {
         for (const auto& b : v.getBillets()) {
             const string& type = b.first;
@@ -163,9 +192,11 @@ int Zoo::nombre_billets_jour(int jour) const{ //calcule le nombre de billets ven
     return total;
 };
 
-int Zoo::benefice_jour(int jour) const{ //calcule les bénéfices réalisés par le parc pour une journée
+// Calcule le bénéfice réalisé pour un jour donné
+int Zoo::benefice_jour(int jour) const{
     int total = 0;
     auto it = billets_par_jour.find(jour);
+
     if (it == billets_par_jour.end()){
         return 0;
     }
@@ -177,16 +208,20 @@ int Zoo::benefice_jour(int jour) const{ //calcule les bénéfices réalisés par
     return total;
 };
 
-int Zoo::nombre_billets_total() const { //calcule le nombre total de billets vendus
+// Calcule le nombre total de billets vendus depuis l'ouverture du zoo
+int Zoo::nombre_billets_total() const {
     int total = 0;
+
     for (auto& paire : getBilletsParJour()) {
         int jour = paire.first;
         total += nombre_billets_jour(jour);
     }
+
     return total;
 };
 
-int Zoo::benefice_total() const { //calcule le bénéfice total réalisé par le parc
+// Calcule le bénéfice total réalisé par le zoo depuis son ouverture
+int Zoo::benefice_total() const {
     int total = 0;
 
     for (auto& paire : getBilletsParJour()) {
@@ -197,6 +232,7 @@ int Zoo::benefice_total() const { //calcule le bénéfice total réalisé par le
     return total;
 };
 
+// Affiche les informations générales du zoo
 void Zoo::afficher_informations() const {
     int total_animaux = 0;
     for (const auto& e : enclos) {
