@@ -279,23 +279,33 @@ int main() {
     cout << "\n-- Tous les elements du zoo sont crees. Vous pouvez maintenant gerer votre zoo." << endl;
     pause(1);
 
-   // Boucle principale
-   // Menu du gérant
+    // =======================================
+    // BOUCLE PRINCIPALE DU JEU (MENU DU GERANT)
+    // =========================================
+
+    // Variable stockant le choix de l'utilisateur dans le menu
     int choix_menu = -1;
+
+    // La boucle continue tant que l'utilisateur ne choisit pas de quitter (0)
     while (choix_menu != 0) {
+
         pause(1);
         cout << "\n================= MENU =================" << endl;
         pause(1);
+
+        // Affichage des différentes actions possibles
         cout << "1 - Afficher les informations des enclos" << endl;
         cout << "2 - Verifier l'etat des animaux" << endl;
         cout << "3 - Nourrir les animaux" << endl;
         cout << "4 - Soigner les animaux malades" << endl;
         cout << "5 - Passer au jour suivant" << endl;
         cout << "0 - Quitter" << endl;
+
         pause(1);
         cout << "\nVotre choix : ";
         cin >> choix_menu;
 
+        // Vérification de la validité de la saisie utilisateur
         while (cin.fail() || choix_menu < 0 || choix_menu > 5) {
                 cin.clear();
                 cin.ignore(10000, '\n');
@@ -303,10 +313,16 @@ int main() {
                 cin >> choix_menu;
             }
 
+        // Traitement du choix utilisateur
         switch (choix_menu) {
-    
+
+            // =============================================
+            // CAS 1 : AFFICHAGE DES INFORMATIONS DES ENCLOS
+            // =============================================
             case 1: {
                 cout << "\n--- Informations des enclos ---" << endl;
+                
+                // Parcours de tous les enclos pour afficher leurs informations
                 for (int i = 0; i < nb_enclos; i++) {
                     pause(1);
                     zoo.getEnclos(i).afficher_informations();
@@ -316,13 +332,16 @@ int main() {
                 break;
             }
 
+            // ==========================================
+            // CAS 2 : VERIFICATION DE L'ETAT DES ANIMAUX
+            // ==========================================
             case 2: {
                 cout << "\n--- Verification de l'etat des animaux ---" << endl;
                 pause(1);
                 cout << "-- Veuillez choisir un soigneur :" << endl;
                 pause(1);
 
-                // Afficher la liste des soigneurs
+                // Affichage de la liste des soigneurs disponibles
                 for (size_t i = 0; i < zoo.getSoigneurs().size(); i++) {
                     cout << i + 1 << " - " << zoo.getSoigneurs()[i]->getNom() << " " << zoo.getSoigneurs()[i]->getPrenom() << endl;
                 }
@@ -332,6 +351,7 @@ int main() {
                 cout << "\n-- Votre choix : ";
                 cin >> choix_soigneur;
 
+                // Vérification de la validité du choix du soigneur
                 while (cin.fail() || choix_soigneur < 1 || choix_soigneur > zoo.getSoigneurs().size()) {
                     cin.clear();
                     cin.ignore(10000, '\n');
@@ -339,25 +359,33 @@ int main() {
                     cin >> choix_soigneur;
                 }
 
+                // Affichage de l'état de tous les animaux de l'enclos du soigneur
                 pause(1);
                 cout << "\n--- Enclos #" << zoo.getSoigneurs()[choix_soigneur - 1]->getEnclos()->getID() << " ---" << endl;
+
                 zoo.getSoigneurs()[choix_soigneur - 1]
                 ->verification_statut_tous();
                 break;
             }
 
+            // ===========================
+            // CAS 3 : NOURRIR LES ANIMAUX
+            // ===========================
             case 3: {
+
+                // Si tous les enclos sont déjà nourris, aucune action n'est possible
                 if (zoo.tous_les_enclos_sont_remplis()) {
                     pause(1);
                     cout << "\nTous les enclos ont deja de la nourriture dans leur mangeoir." << endl;
                     break;
                 }
+
                 cout << "\n--- Remplir la nourriture des enclos ---" << endl;
                 pause(1);
                 cout << "-- Veuillez choisir un soigneur :" << endl;
                 pause(1);
 
-                // Afficher la liste des soigneurs
+                // Affichage de la liste des soigneurs
                 for (size_t i = 0; i < zoo.getSoigneurs().size(); i++) {
                     cout << i + 1 << " - " << zoo.getSoigneurs()[i]->getNom() << " " << zoo.getSoigneurs()[i]->getPrenom() << endl;
                 }
@@ -367,6 +395,7 @@ int main() {
                 cout << "\n-- Votre choix : ";
                 cin >> choix_soigneur;
 
+                // Vérification de la validité du choix du soigneur
                 while (cin.fail() || choix_soigneur < 1 || choix_soigneur > zoo.getSoigneurs().size()) {
                     cin.clear();
                     cin.ignore(10000, '\n');
@@ -374,8 +403,10 @@ int main() {
                     cin >> choix_soigneur;
                 }
 
+                // Le soigneur sélectionné remplit la nourriture 
                 pause(1);
                 zoo.getSoigneurs()[choix_soigneur - 1]->remplir_nourriture_enclos(zoo.getDateActuelle());
+
                 if (zoo.tous_les_enclos_sont_remplis()) {
                     pause(1);
                     cout << "\nTous les enclos ont de la nourriture dans leur mangeoir." << endl;
@@ -383,14 +414,19 @@ int main() {
                 break;
             }
 
+            // ===================================
+            // CAS 4 : SOIGNER LES ANIMAUX MALADES
+            // ===================================
             case 4: {
-                // Règle : pas de soins le premier jour
+
+                // Les animaux ne peuvent pas être malades le premier jour
                 if (zoo.getDateActuelle() == 1) {
                     pause(1);
                     cout << "\nLes animaux ne peuvent pas etre malades le premier jour." << endl;
                     break;
                 }
 
+                // Si tous les animaux sont déjà en bonne santé
                 if (zoo.tous_les_animaux_sont_soignes()) {
                     pause(1);
                     cout << "\nTous les animaux du zoo sont deja en bonne sante." << endl;
@@ -402,7 +438,7 @@ int main() {
                 cout << "-- Veuillez choisir un soigneur :" << endl;
                 pause(1);
 
-                // Afficher la liste des soigneurs
+                // Affichage de la liste des soigneurs
                 for (size_t i = 0; i < zoo.getSoigneurs().size(); i++) {
                     cout << i + 1 << " - " << zoo.getSoigneurs()[i]->getNom() << " " << zoo.getSoigneurs()[i]->getPrenom() << endl;
                 }
@@ -412,6 +448,7 @@ int main() {
                 cout << "\n-- Votre choix : ";
                 cin >> choix_soigneur;
 
+                // Vérification de la validité du choix du soigneur
                 while (cin.fail() || choix_soigneur < 1 || choix_soigneur > zoo.getSoigneurs().size()) {
                     cin.clear();
                     cin.ignore(10000, '\n');
@@ -420,14 +457,15 @@ int main() {
                 }
 
                 pause(1);
-                Soigneur& soigneur = *zoo.getSoigneurs()[choix_soigneur - 1];
 
-                // Récupération de l'enclos du soigneur
-                Enclos* enclos = soigneur.getEnclos();   // getter simple
+                // Récupération du soigneur sélectionné et de son enclos
+                Soigneur& soigneur = *zoo.getSoigneurs()[choix_soigneur - 1];
+                Enclos* enclos = soigneur.getEnclos();
                 
                 cout << "\n-- Veuillez choisir un animal malade :" << endl;
                 pause(1);
 
+                // Affichage des animaux de l'enclos avec leur état de santé
                 for (size_t i = 0; i < enclos->getAnimaux().size(); i++) {
                     cout << i + 1 << " - " << enclos->getAnimaux()[i].getNom() << " | Sante : " << (enclos->getAnimaux()[i].getSante() ? "Bonne" : "Mauvaise") << endl;
                 }
@@ -437,6 +475,7 @@ int main() {
                 cout << "\n-- Votre choix : ";
                 cin >> choix_animal;
 
+                // Vérification de la validité du choix de l'animal
                 while (cin.fail() || choix_animal < 1 || choix_animal > enclos->getAnimaux().size()) {
                     cin.clear();
                     cin.ignore(10000, '\n');
@@ -445,8 +484,11 @@ int main() {
                 }
 
                 pause(1);
+
+                // Récupération de l'animal sélectionné
                 Animal& animal = enclos->getAnimaux()[choix_animal - 1];
 
+                // Vérification de l'état de santé avant soin
                 if (animal.getSante() == true) {
                     cout << "\nCet animal est deja en bonne sante. Vous ne pouvez pas le soigner." << endl;
                     break;
@@ -456,8 +498,8 @@ int main() {
                     cout << "\nL'animal \"" << animal.getNom() << "\" a ete soigne avec succes." << endl;
                 }
 
+                // Vérification si tous les animaux de l'enclos sont soignés
                 bool tous_soignes = true;
-
                 for (const auto& a : enclos->getAnimaux()) {
                     if (!a.getSante()) {
                         tous_soignes = false;
@@ -478,24 +520,35 @@ int main() {
                 break;
             }
 
+            // ==============================
+            // CAS 5 : PASSER AU JOUR SUIVANT
+            // ==============================
             case 5: {
                 cout << "\n--- Passage au jour suivant ---" << endl;
                 pause(1);
                 zoo.passer_jour();
                 break;
             }
-                
+
+            // ====================================================
+            // CAS 0 : QUITTER LE JEU ET AFFICHER LES STATS FINALES
+            // ====================================================
             case 0: {
                 pause(1);
                 cout << "\n--- Fermeture du jeu ---\n" << endl;
                 pause(1);
+
+                // Affichage de l'état final du zoo
                 zoo.afficher_informations();
                 pause(1);
+
+                // Affichage des statistiques finales
                 cout << "\n--- Statistiques finales du zoo ---" << endl;
                 pause(1);
                 cout << "- Nombre total de billets vendus : " << zoo.nombre_billets_total() << endl;
                 pause(1);
                 cout << "- Benefice total realise : " << zoo.benefice_total() << " euros" << endl;
+
                 pause(1);
                 cout << "\nMerci d'avoir jouer !" << endl;
                 break;
