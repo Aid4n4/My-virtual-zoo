@@ -8,32 +8,49 @@
 using namespace std;
 
 int main() {
+    // Initialisation du générateur de nombres aléatoires
+    // (utilisé notamment pour les visiteurs et la simulation de santé des animaux)
     srand(time(nullptr));
 
-    // Initialisation du zoo
+    // =================================
+    // CREATION ET INITIALISATION DU ZOO
+    // =================================
     string nom_zoo;
     cout << "--- Bienvenue dans My Virtual Zoo ---" << endl;
     pause(1);
     cout << "-- Quel nom souhaitez-vous donner a votre zoo ? ";
     cin >> nom_zoo;
+
+    // Création de l'objet Zoo avec le nom choisi par l'utilisateur
     Zoo zoo(nom_zoo);
+
     cout << "\nVous avez cree avec succes le zoo \"" << nom_zoo << "\" :" << endl;
     pause(1);
 
+    // Affichage des informations initiales du zoo
     zoo.afficher_informations();
     pause(2);
 
-    // Initialisation des enclos
+    // =========================
+    // CREATION DES ENCLOS DU ZOO
+    // ==========================
+
+    // Chargement des animaux disponibles depuis le fichier CSV
     vector<Animal_modele> animaux_disponibles = charger_animaux_csv("animaux.csv");
+    
     cout << "\n-- Pour commencer, vous allez devoir creer des enclos pour pouvoir y mettre vos futurs animaux." << endl;
     pause(2);
 
+    // Variables de contrôle de la création des enclos
     char continuer = 'O';
     int id_enclos = 1;
     int nb_enclos = 0;
-    int nb_enclos_max = 10; //limite le nombre d'enclos pouvant être créés
-    
+    int nb_enclos_max = 10; // Nombre maximum d'enclos autorisés
+
+    // Boucle de création des enclos (limitée à 10 enclos maximum)
     while ((continuer == 'O' || continuer == 'o') && nb_enclos < nb_enclos_max + 1) {
+
+        // Vérification de la limite maximale d'enclos
         if (nb_enclos >= nb_enclos_max) {
             cout << "\nVous avez atteint le nombre maximum d'enclos (" << nb_enclos_max << ")." << endl;
             break;
@@ -42,10 +59,12 @@ int main() {
         cout << "\n--- Creation de l'enclos #" << id_enclos << " ---" << endl;
         pause(1);
         
+        // Variables utilisées pour l'affichage par pages des animaux
         int index_debut = 0;
         int choix;
         Animal_modele animal_choisi;
 
+        // Boucle de sélection ou de création d'une espèce
         while (true) {
             cout << "-- Veuillez choisir un animal :" << endl;
             pause(1);
