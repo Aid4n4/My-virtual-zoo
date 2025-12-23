@@ -14,7 +14,6 @@ using namespace std;
  * 
  * Cette classe permet de consulter et modifier ces états au cours de la simulation
  */
-
 class Animal
 {
 private:
@@ -84,3 +83,4 @@ public:
 };
 
 #endif
+
