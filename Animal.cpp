@@ -3,8 +3,10 @@
 #include "Utilitaires.hpp"
 using namespace std;
 
+// Initialisation d'un animal en bonne santé, affamé, et jamais nourri
 Animal::Animal(int _numero, const string& _nom) : numero(_numero), nom(_nom), sante(true), satiete(false), derniere_date_nourri(0) {};
 
+// Affiche l'état actuel de l'animal
 void Animal::verification_statut() const{
     cout << "Animal #" << numero << " (" << nom << ")" << endl;
     pause(1);
