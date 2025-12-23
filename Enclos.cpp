@@ -4,8 +4,10 @@
 #include "Utilitaires.hpp"
 using namespace std;
 
+// Initialise un enclos sans nourriture et sans soigneur assigné.
 Enclos::Enclos(int _id, const string& _race, const string& _regime, const string& _type_enclos) : enclos_id(_id), race(_race), regime(_regime), type_enclos(_type_enclos), nourriture(false), soigneur(nullptr) {}
 
+// Ajoute un animal à l'enclos après vérification des doublons.
 bool Enclos::ajout_animal(const Animal& nouvel_animal){
     for (const auto& animal : animaux) {
         if (animal.getNumero() == nouvel_animal.getNumero()) {
@@ -23,6 +25,7 @@ bool Enclos::ajout_animal(const Animal& nouvel_animal){
     return true;
 };
 
+// Remplit la nourriture de l'enclos et met à jour l'état des animaux.
 bool Enclos::remplissage_nourriture(int date_actuelle){
     if (nourriture){
         return false;
@@ -36,6 +39,7 @@ bool Enclos::remplissage_nourriture(int date_actuelle){
     return true;
 };
 
+// Affiche les informations générales de l'enclos.
 void Enclos::afficher_informations() const {
     cout << "Enclos #" << enclos_id << endl;
     pause(1);
