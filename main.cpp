@@ -185,19 +185,27 @@ int main() {
         }
     }
 
-    // Initialisation des animaux dans les enclos
+    // ==========================================
+    // INITIALISATION DES ANIMAUX DANS LES ENCLOS
+    // ==========================================
     pause(2);
     cout << "\n-- Ensuite, vous allez devoir ajouter des animaux dans vos enclos." << endl;
     pause(2);
 
+    // Parcours de chaque enclos créé précédemment
     for (int i = 0; i < nb_enclos; i++) {
-        int nb_animaux = 0; //variable pour stocker le nombre d'animaux créés
-        int nb_animaux_max = 10; //limite le nombre d'animaux pouvant être créés par enclos
+
+        int nb_animaux = 0; // Nombre d'animaux à ajouter dans l'enclos courant
+        int nb_animaux_max = 10; // Nombre maximal d'animaux autorisés par enclos
+
         cout << "\n--- Creation des animaux dans l'enclos #" << zoo.getEnclos(i).getID() << " ---" << endl;
         pause(1);
+
+        // Demande à l'utilisateur combien d'animaux il souhaite créer
         cout << "-- Combien d'animaux voulez-vous ajouter dans l'enclos #" << zoo.getEnclos(i).getID() << " ? ";
         cin >> nb_animaux;
 
+        // Vérification de la validité de la saisie utilisateur
         while (cin.fail() || nb_animaux <= 0 || nb_animaux > nb_animaux_max) {
             cin.clear();
             cin.ignore(10000, '\n');
@@ -205,16 +213,23 @@ int main() {
             cin >> nb_animaux;
         }
 
+        // Création des animaux dans l'enclos
         for (int j = 0; j < nb_animaux; j++) {
             bool ajoute = false;
+
+            // Boucle tant que l'animal n'a pas été ajouté avec succès
             while (!ajoute) {
                 string nom_animal;
+
+                // Demande du nom de l'animal
                 cout << "\n-- Quel nom souhaitez-vous donner a l'animal #" << j + 1 << " de l'enclos #" << zoo.getEnclos(i).getID() << " ? ";
                 cin >> nom_animal;
 
+                // Création temporaire de l'animal
                 int id_animal = j + 1;
                 Animal animal_temp(id_animal, nom_animal);
 
+                // Tentative d'ajout de l'animal à l'enclos
                 ajoute = zoo.getEnclos(i).ajout_animal(animal_temp);
                 pause(1);
             }
@@ -224,24 +239,36 @@ int main() {
     pause(1);
     cout << "\n-- Maintenant que vous avez vos animaux, il ne vous reste plus qu'a creer des soigneurs pour s'en occuper." << endl;
     
-    // Initialisation des soigneurs pour chaque enclos
+    // ===========================
+    // INITIALISATION DES SOIGNEURS
+    // ============================
+
+    // Création d'un soigneur pour chaque enclos
     for (int i = 0; i < nb_enclos; i++) {
         bool ajoute = false;
+
         pause(2);
         cout << "\n--- Creation du soigneur pour l'enclos #" << zoo.getEnclos(i).getID() << " ---" << endl;
         pause(1);
+
+        // Boucle jusqu'à ce que le soigneur soit correctement affecté
         while (!ajoute) {
             string nom, prenom;
 
+            // Saisie des informations du soigneur
             cout << "-- Quel nom souhaitez-vous donner a votre soigneur ? ";
             cin >> nom;
 
             cout << "-- Quel prenom souhaitez-vous donner a votre soigneur ? ";
             cin >> prenom;
 
+            // Création dynamique du soigneur
             Soigneur* soigneur = new Soigneur(nom, prenom);
+            
+            // Tentative d'affectation du soigneur à l'enclos
             ajoute = zoo.ajouter_soigneur(soigneur, zoo.getEnclos(i));
 
+            // En cas d'échec, libération de la mémoire
             if (!ajoute) {
                 delete soigneur; // Libérer la mémoire si l'ajout a échoué
             }
