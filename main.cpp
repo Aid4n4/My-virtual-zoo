@@ -69,36 +69,47 @@ int main() {
             cout << "-- Veuillez choisir un animal :" << endl;
             pause(1);
 
+            // Affichage de 10 animaux à la fois
             int index_fin = min(index_debut + 10, static_cast<int>(animaux_disponibles.size()));
 
             for (int i = index_debut; i < index_fin; i++) {
                 cout << i + 1 << " - " << animaux_disponibles[i].race << endl;
             }
             
+            // Option pour afficher les animaux suivants
             if (index_fin < animaux_disponibles.size()) {
                 cout << index_fin + 1 << " - Afficher les 10 animaux suivants" << endl;
             }
             
+            // Option pour créer une nouvelle espèce
             cout << "0 - Creer une nouvelle espece" << endl;
             pause(1);
             cout << "\n-- Votre choix : ";
             cin >> choix;
+
+            // Sécurisation de la saisie utilisateur
             while (cin.fail() || choix < 0 || choix > animaux_disponibles.size() + 1) {
                 cin.clear();
                 cin.ignore(10000, '\n');
                 cout << "\nChoix invalide. Veuillez saisir un nombre valide : ";
                 cin >> choix;
             }
+
+            // Affichage de la page suivante
             if (choix == index_fin + 1 && index_fin < animaux_disponibles.size()) {
                 index_debut += 10;
                 continue;
             }
+            // Sélection d'une espèce existante
             else if (choix >= 1 && choix <= animaux_disponibles.size()) {
                 animal_choisi = animaux_disponibles[choix - 1];
                 break;
             }
+            // Création d'une nouvelle espèce
             else if (choix == 0) {
                 cout << "\n--- Creation d'une nouvelle espece ---" << endl;
+                
+                // Saisie et vérification de l'unicité de la race
                 while (true) {
                     cout << "- Race : ";
                     cin >> animal_choisi.race;
@@ -118,10 +129,12 @@ int main() {
                         break;
                     }
                 }
-                
+
+                // Saisie contrôlée du régime alimentaire
                 while (true) {
                     cout << "- Regime (Omnivore / Carnivore / Herbivore) : ";
                     cin >> animal_choisi.regime;
+
                     if (animal_choisi.regime == "Omnivore" || animal_choisi.regime == "Carnivore" || animal_choisi.regime == "Herbivore") {
                         break;
                     }   
@@ -129,11 +142,15 @@ int main() {
                         cout << "\nRegime invalide. Veuillez saisir Omnivore, Carnivore ou Herbivore." << endl;
                     }
                 }
+
+                // Saisie du type d'enclos
                 cout << "- Type d'enclos : ";
                 cin >> animal_choisi.type_enclos;
 
+                // Ajout de la nouvelle espèce à la base et au CSV
                 animaux_disponibles.push_back(animal_choisi);
                 ajouter_animal_csv("animaux.csv", animal_choisi);
+                
                 cout << "\nNouvelle espece ajoutee avec succes a la base." << endl;
                 pause(1);
                 break;
@@ -144,9 +161,12 @@ int main() {
             }
         }
 
+        // Création de l'enclos associé à l'espèce choisie
         zoo.ajouter_enclos(Enclos(id_enclos++, animal_choisi.race, animal_choisi.regime, animal_choisi.type_enclos));
-        nb_enclos++; //augmente le nombre d'enclos a chaque nouvelle création
+        
+        nb_enclos++; // Incrémentation du nombre d'enclos créés
 
+        // Suppression de l'espèce utilisée pour éviter les doublons d'enclos
         for (auto it = animaux_disponibles.begin(); it != animaux_disponibles.end(); ++it) {
             if (it->race == animal_choisi.race) {
                 animaux_disponibles.erase(it);
@@ -158,6 +178,7 @@ int main() {
         cout << "\n-- Souhaitez-vous creer un autre enclos ? (O/N) : "; //donne le choix de créer plusieurs enclos
         cin >> continuer;
 
+        // Validation de la réponse utilisateur
         while (continuer != 'O' && continuer != 'o' && continuer != 'N' && continuer != 'n') {
             cout << "\nChoix invalide. Veuillez repondre par O (oui) ou N (non) : ";
             cin >> continuer;
